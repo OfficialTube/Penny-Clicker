@@ -1,4 +1,4 @@
-var money = 100000000;
+var money = 0.00;
 var moneyt = 0.00;
 var incmultiplier = 1;
 var inc = 0.01; 
