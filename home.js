@@ -758,8 +758,8 @@ nickel2button.addEventListener("click", function() {
 })
 
 nickelt1button.addEventListener("click", function() {
-    if(money >= 10.00) {
-        money -= 10.00;
+    if(money >= 5) {
+        money -= 5;
         nickelt1 = true;
         nickelmultiplier *= 1.5;
         nickelvalue = nickelinc * nickelmultiplier;
