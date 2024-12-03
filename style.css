@@ -2,6 +2,7 @@ body {
     margin: 0;
     background-color: rgb(11, 85, 11);
     color: white;
+    touch-action: manipulation;
 }
 .header {
     background-color: black;
@@ -26,6 +27,7 @@ body {
 }
 button {
     color: black;
+    touch-action: manipulation;
 }
 #button {
     background-color: #9d5728;
