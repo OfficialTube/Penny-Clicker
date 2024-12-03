@@ -1,3 +1,76 @@
+body {
+    margin: 0;
+    background-color: rgb(11, 85, 11);
+    color: white;
+}
+.header {
+    background-color: black;
+    content: 100%;
+    display: block;
+}
+.subheader {
+    justify-content: center;
+    display: flex;
+}
+.hs {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#money, #moneypc, #moneyps, .buttondiv{
+    justify-content: center;
+    display: flex;
+    margin: 0;
+}
+#upgradest, #moneyt, #timeelapsed, #click, #clickt, #pennyt, #nickelt {
+    margin: 0 0 0 10px;
+}
+
+#button {
+    background-color: #9d5728;
+    color: white;
+    border-radius: 200px;
+    height: 200px;
+    width: 200px;
+    border: 5px solid black;
+
+}
+button:hover {
+    cursor: pointer;
+}
+
+.main-upgrade p {
+    margin:0;
+}
+
+.main-upgrade {
+    border-radius: 75px;
+    width: 200px;
+    height: 75px;
+    border: 3px solid black;
+    background-color: white;
+}
+
+.secondary-upgrade p {
+    margin: 0;
+}
+.secondary-upgrade {
+    border-radius: 20px;
+    width: 175px;
+    height: 75px;
+    border: 3px solid black;
+    background-color: white;
+}
+
+.color1 {
+    background-color: #68fe81;
+}
+.color2 {
+    background-color: #f5ff67;
+}
+.color3 {
+    background-color: #ff7c7c;
+}
+
 #clickupgrade {
     display: none;
 }
