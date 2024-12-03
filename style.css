@@ -24,7 +24,9 @@ body {
 #upgradest, #moneyt, #timeelapsed, #click, #clickt, #pennyt, #nickelt {
     margin: 0 0 0 10px;
 }
-
+button {
+    color: black;
+}
 #button {
     background-color: #9d5728;
     color: white;
