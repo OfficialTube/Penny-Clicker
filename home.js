@@ -1,5 +1,15 @@
 var money = 0.00;
 var moneyt = 0.00;
+var upgradest = 0;
+var seconds = 0;
+var stringseconds;
+var minutes = 0;
+var stringminutes;
+var hours = 0;
+var stringhours;
+var days = 0;
+var stringdays;
+var timestart = false;
 var incmultiplier = 1;
 var inc = 0.01; 
 var incvalue = inc * incmultiplier;
@@ -89,6 +99,49 @@ function change(input) {
 }
 
 setInterval(function() {
+    if(timestart == true) {
+        seconds++; 
+    }
+    if (seconds >= 60) {
+        seconds -= 60;
+        minutes++;
+    }
+    if (minutes >= 60) {
+        minutes -= 60;
+        hours++;
+    }
+    if (hours >= 24){
+        hours-=24;
+        days++;
+    }
+    if(seconds == 1) {
+        stringseconds = "1 second";
+    }
+    else {
+        stringseconds = seconds + " seconds";
+    }
+    if(minutes == 1) {
+        stringminutes = "1 minute, ";
+    }
+    else {
+        stringminutes = minutes + " minutes, ";
+    }
+    if(hours == 1) {
+        stringhours = "1 hour, ";
+    }
+    else {
+        stringhours = hours + " hours, ";
+    }
+    if(days == 1) {
+        stringdays = "1 day, ";
+    }
+    else {
+        stringdays = days + " days, ";
+    }
+    document.getElementById("timeelapsed").innerHTML = "Time Elapsed: " + stringdays + stringhours + stringminutes + stringseconds;
+}, 1000);
+
+setInterval(function() {
     money += (pennyvalue + nickelvalue)/10;
     moneyt += (pennyvalue + nickelvalue)/10;
     document.getElementById("money").innerHTML = change(money);
@@ -123,8 +176,121 @@ setInterval(function() {
         if (nickelt >= 5 && nickelt1 == false) {
             nickelt1button.style.display = "inline-block";
         }
-    }
 
+    }
+    
+    if(click == true){
+        if(money < clickupgradecost) {
+            document.getElementById("clickupgrade").style.backgroundColor = "gray";
+        }
+        else {
+            document.getElementById("clickupgrade").style.backgroundColor = "white";
+        }
+    }
+    if(penny == true){
+        if(money < pennycost) {
+            document.getElementById("pennyupgrade").style.backgroundColor = "gray";
+        }
+        else {
+            document.getElementById("pennyupgrade").style.backgroundColor = "white";
+        }
+    }
+    if(nickel == true){
+        if(money < nickelcost) {
+            document.getElementById("nickelupgrade").style.backgroundColor = "gray";
+        }
+        else {
+            document.getElementById("nickelupgrade").style.backgroundColor = "white";
+        }
+    }
+    if(click1 == false){
+        if(money < 1) {
+            document.getElementById("click1").style.filter = "grayscale(100%)";
+        }
+        else {
+            document.getElementById("click1").style.filter = "grayscale(0%)";
+        }
+    }
+    if(click2 == false){
+        if(money < 30) {
+            document.getElementById("click2").style.filter = "grayscale(100%)";
+        }
+        else {
+            document.getElementById("click2").style.filter = "grayscale(0%)";
+        }
+    }
+    if(click3 == false){
+        if(money < 7500) {
+            document.getElementById("click3").style.filter = "grayscale(100%)";
+        }
+        else {
+            document.getElementById("click3").style.filter = "grayscale(0%)";
+        }
+    }
+    if(clicka1 == true){
+        if(money < 0.5) {
+            document.getElementById("clicka1").style.filter = "grayscale(100%)";
+        }
+        else {
+            document.getElementById("clicka1").style.filter = "grayscale(0%)";
+        }
+    }
+    if(clickt1 == true){
+        if(money < 1) {
+            document.getElementById("clickt1").style.filter = "grayscale(100%)";
+        }
+        else {
+            document.getElementById("clickt1").style.filter = "grayscale(0%)";
+        }
+    }
+    if(penny1 == false){
+        if(money < 5) {
+            document.getElementById("penny1").style.filter = "grayscale(100%)";
+        }
+        else {
+            document.getElementById("penny1").style.filter = "grayscale(0%)";
+        }
+    }
+    if(penny2 == false){
+        if(money < 150) {
+            document.getElementById("penny2").style.filter = "grayscale(100%)";
+        }
+        else {
+            document.getElementById("penny2").style.filter = "grayscale(0%)";
+        }
+    }
+    if(pennyt1 == true){
+        if(money < 1) {
+            document.getElementById("pennyt1").style.filter = "grayscale(100%)";
+        }
+        else {
+            document.getElementById("pennyt1").style.filter = "grayscale(0%)";
+        }
+    }
+    if(nickel1 == false){
+        if(money < 25) {
+            document.getElementById("nickel1").style.filter = "grayscale(100%)";
+        }
+        else {
+            document.getElementById("nickel1").style.filter = "grayscale(0%)";
+        }
+    }
+    if(nickel2 == false){
+        if(money < 750) {
+            document.getElementById("nickel2").style.filter = "grayscale(100%)";
+        }
+        else {
+            document.getElementById("nickel2").style.filter = "grayscale(0%)";
+        }
+    }
+    if(nickelt1 == true){
+        if(money < 5) {
+            document.getElementById("nickelt1").style.filter = "grayscale(100%)";
+        }
+        else {
+            document.getElementById("nickelt1").style.filter = "grayscale(0%)";
+        }
+    }
     /*if(moneyt >= 10 && total1 == false) {
         total1button.style.display = "inline-block";
     }
@@ -139,10 +305,16 @@ setInterval(function() {
     }*/
 }, 100);
 
+function upgradesTotal() {
+    upgradest++;
+    document.getElementById("upgradest").innerHTML = "Total Upgrades: " + upgradest + "/11 (" + ((upgradest/11)*100).toFixed(1) + "%)";
+}
+
 const clicka1button = document.getElementById("clicka1");
 const clickt1button = document.getElementById("clickt1");
 const button = document.getElementById("button");
 button.addEventListener("click", function() {
+    timestart = true;
     money += incvalue;
     moneyt += incvalue;
     clickt += incvalue;
@@ -236,6 +408,7 @@ click1button.addEventListener("click", function() {
         incvalue = inc * incmultiplier;
         document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
         click1button.style.display = "none"
+        upgradesTotal();
     }
 })
 
@@ -247,6 +420,7 @@ click2button.addEventListener("click", function() {
         incvalue = inc * incmultiplier;
         document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
         click2button.style.display = "none"
+        upgradesTotal();
     }
 })
 
@@ -258,6 +432,7 @@ click3button.addEventListener("click", function() {
         incvalue = inc * incmultiplier;
         document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
         click3button.style.display = "none"
+        upgradesTotal();
     }
 })
 
@@ -269,6 +444,7 @@ clicka1button.addEventListener("click", function() {
         incvalue = inc * incmultiplier;
         document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
         clicka1button.style.display = "none"
+        upgradesTotal();
     }
 })
 
@@ -280,6 +456,7 @@ clickt1button.addEventListener("click", function() {
         incvalue = inc * incmultiplier;
         document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
         clickt1button.style.display = "none"
+        upgradesTotal();
     }
 })
 
@@ -292,6 +469,7 @@ penny1button.addEventListener("click", function() {
         moneyvalue = pennyvalue + nickelvalue;
         document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
         penny1button.style.display = "none";
+        upgradesTotal();
     }
 })
 
@@ -304,6 +482,7 @@ penny2button.addEventListener("click", function() {
         moneyvalue = pennyvalue + nickelvalue;
         document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
         penny2button.style.display = "none";
+        upgradesTotal();
     }
 })
 
@@ -316,6 +495,7 @@ pennyt1button.addEventListener("click", function() {
         moneyvalue = pennyvalue + nickelvalue;
         document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
         pennyt1button.style.display = "none";
+        upgradesTotal();
     }
 })
 
@@ -328,6 +508,7 @@ nickel1button.addEventListener("click", function() {
         moneyvalue = pennyvalue + nickelvalue;
         document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
         nickel1button.style.display = "none";
+        upgradesTotal();
     }
 })
 
@@ -340,6 +521,7 @@ nickel2button.addEventListener("click", function() {
         moneyvalue = pennyvalue + nickelvalue;
         document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
         nickel2button.style.display = "none";
+        upgradesTotal();
     }
 })
 
@@ -352,6 +534,7 @@ nickelt1button.addEventListener("click", function() {
         moneyvalue = pennyvalue + nickelvalue;
         document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
         nickelt1button.style.display = "none";
+        upgradesTotal();
     }
 })
 

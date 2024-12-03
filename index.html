@@ -4,6 +4,13 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div class="header">
+            <div class="subheader">
+                <span class="hs">Penny Clicker</span>
+                <span id="version" class="hs">v0.1.0</span>
+                <span class="hs">Last Updated - December 2, 2024</span>
+            </div>
+        </div>
         <h1 id="money">
             0.0¢
         </h1>
@@ -13,13 +20,13 @@
         <p id="moneyps">
             
         </p>
-        <div>
-            <button id="button">Click</button>
+        <div class="buttondiv">
+            <button id="button"></button>
         </div>
         
         <div>
             <div>
-                <button id="clickupgrade">
+                <button id="clickupgrade" class="main-upgrade">
                     <p>Click Upgrades</p>
                     <p id="clickupgradelevel">
                         Level: 0
@@ -29,28 +36,28 @@
                     </p>
                 </button>
                 
-                <button id="clicka1">
+                <button id="clicka1" class="secondary-upgrade color3">
                     <p>100 Clicks</p>
                     <p>Click Upgrades: x2</p>
                     <p>Upgrade Cost: 50.0¢</p>
                 </button>
-                <button id="clickt1">
+                <button id="clickt1" class="secondary-upgrade color2">
                     <p>Clicks = $1.00</p>
                     <p>Click Upgrades: x1.5</p>
                     <p>Upgrade Cost: $1.00</p>
                 </button>
-                <button id="click1">
+                <button id="click1" class="secondary-upgrade color1">
                     <p>Click Upgrade I</p>
                     <p>Click Upgrades: x2</p>
                     <p>Upgrade Cost: $1.00</p>
                 </button>
 
-                <button id="click2">
+                <button id="click2" class="secondary-upgrade color1">
                     <p>Click Upgrade II</p>
                     <p>Click Upgrades: x2</p>
                     <p>Upgrade Cost: $30.00</p>
                 </button>
-                <button id="click3">
+                <button id="click3" class="secondary-upgrade color1">
                     <p>Click Upgrade III</p>
                     <p>Click Upgrades: x2</p>
                     <p>Upgrade Cost: $7.500a</p>
@@ -58,7 +65,7 @@
             </div>
 
             <div>
-                <button id="pennyupgrade">
+                <button id="pennyupgrade" class="main-upgrade">
                     <p>Penny Upgrades</p>
                     <p id="pennylevel">
                         Level: 0
@@ -68,23 +75,23 @@
                     </p>
                 </button>
 
-                <button id="pennyt1">
+                <button id="pennyt1" class="secondary-upgrade color2">
                     <p>Pennies = $1.00</p>
                     <p>Penny Updgrades: x1.5</p>
                     <p>Upgrade Cost: $1.00</p>
                 </button>
-                <button id="penny1">
+                <button id="penny1" class="secondary-upgrade color1">
                     <p>Penny Upgrade I</p>
                     <p>Penny Updgrades: x2</p>
                     <p>Upgrade Cost: $5.00</p>
                 </button>
 
-                <button id="penny2">
+                <button id="penny2" class="secondary-upgrade color1">
                     <p>Penny Upgrade II</p>
                     <p>Penny Updgrades: x2</p>
                     <p>Upgrade Cost: $150.00</p>
                 </button>
-                <button id="penny3">
+                <button id="penny3" class="secondary-upgrade color1">
                     <p>Penny Upgrade III</p>
                     <p>Penny Updgrades: x2</p>
                     <p>Upgrade Cost: $40.0a</p>
@@ -92,7 +99,7 @@
             </div>
 
             <div>
-                <button id="nickelupgrade">
+                <button id="nickelupgrade" class="main-upgrade">
                     <p>Nickel Upgrades</p>
                     <p id="nickellevel">
                         Level: 0
@@ -102,23 +109,23 @@
                     </p>
                 </button>
 
-                <button id="nickelt1">
+                <button id="nickelt1" class="secondary-upgrade color2">
                     <p>Nickels = $5.00</p>
                     <p>Nickel Updgrades: x1.5</p>
                     <p>Upgrade Cost: $5.00</p>
                 </button>
-                <button id="nickel1">
+                <button id="nickel1" class="secondary-upgrade color1">
                     <p>Nickel Upgrade I</p>
                     <p>Nickel Updgrades: x2</p>
                     <p>Upgrade Cost: $25.00</p>
                 </button>
 
-                <button id="nickel2">
+                <button id="nickel2" class="secondary-upgrade color1">
                     <p>Nickel Upgrade II</p>
                     <p>Nickel Updgrades: x2</p>
                     <p>Upgrade Cost: $750.00</p>
                 </button>
-                <button id="nickel3">
+                <button id="nickel3" class="secondary-upgrade color1">
                     <p>Nickel Upgrade III</p>
                     <p>Nickel Updgrades: x2</p>
                     <p>Upgrade Cost: $200.0a</p>
@@ -126,8 +133,14 @@
             </div>
         </div>
 
+        <p id="upgradest">
+            Total Upgrades: 0/11 (0.0%)
+        </p>
         <p id="moneyt">
             Total Earnings: 0.0¢
+        </p>
+        <p id="timeelapsed">
+            
         </p>
         <p id="click">
             Clicks: 0
