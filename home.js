@@ -284,8 +284,8 @@ function createUpgrade(upgrade) {
                         money -= upgrade.required
                         pennymultiplier *= upgrade.multiplier;
                         pennyvalue = pennyinc * pennymultiplier;
-                        moneyvalue = pennyvalue + nickelvalue;
-                        document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
+                        moneyps = pennyvalue + nickelvalue;
+                        document.getElementById("moneyps").innerHTML = change(moneyps) + "/second";
                         createUpgrade(upgrade);
                         upgradest++;
                     }
@@ -294,8 +294,8 @@ function createUpgrade(upgrade) {
                         money -= upgrade.required
                         nickelmultiplier *= upgrade.multiplier;
                         nickelvalue = nickelinc * nickelmultiplier;
-                        moneyvalue = pennyvalue + nickelvalue;
-                        document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
+                        moneyps = pennyvalue + nickelvalue;
+                        document.getElementById("moneyps").innerHTML = change(moneyps) + "/second";
                         createUpgrade(upgrade);
                         upgradest++;
                     }
@@ -549,10 +549,10 @@ pennyupgradebutton.addEventListener("click", function() {
         pennyvalue = pennyinc * pennymultiplier;
         pennylevel++;
         pennycost *= pennycostmultiplier;
-        moneyvalue = pennyvalue + nickelvalue;
+        moneyps = pennyvalue + nickelvalue;
         document.getElementById("pennylevel").innerHTML = "Level: " + pennylevel + "   ";
         document.getElementById("pennycost").innerHTML = "Upgrade Cost: " + change(pennycost); 
-        document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
+        document.getElementById("moneyps").innerHTML = change(moneyps) + "/second";
     }
 })
 
@@ -563,9 +563,9 @@ nickelupgradebutton.addEventListener("click", function() {
         nickelvalue = nickelinc * nickelmultiplier;
         nickellevel++;
         nickelcost *= nickelcostmultiplier;
-        moneyvalue = pennyvalue + nickelvalue;
+        moneyps = pennyvalue + nickelvalue;
         document.getElementById("nickellevel").innerHTML = "Level: " + nickellevel + "   ";
         document.getElementById("nickelcost").innerHTML = "Upgrade Cost: " + change(nickelcost); 
-        document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
+        document.getElementById("moneyps").innerHTML = change(moneyps) + "/second";
     }
 })
