@@ -372,9 +372,7 @@ function achieved() {
             achievementcounter++
         }
     });
-    document.getElementById("achievement-progress").innerHTML = 
-        "Achievements: " + achievementcounter + "/" + achievementsList.length + 
-        " (" + ((achievementcounter / achievementsList.length) * 100).toFixed(2) + "%)";
+    document.getElementById("achievement-progress").innerHTML = "Achievements: " + achievementcounter + "/" + achievementsList.length + " (" + ((achievementcounter / achievementsList.length) * 100).toFixed(2) + "%)";
     const achievementContainer = document.getElementById("achievement-achieved");
     achievementContainer.innerHTML = '';
     achievementsList
