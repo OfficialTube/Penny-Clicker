@@ -19,17 +19,8 @@ var clickupgradelevel = 0;
 var clickupgradecost = 0.10;
 var clickupgradecostmultiplier = 1.25;
 var click = false;
-var click1 = false; // level 10
-var click2 = false; // level 25
-var click3 = false; // level 50
-var click4 = false; // level 100
-var click5 = false; // level 250
-var click6 = false; // level 500
-var click7 = false; // level 1,000
 var clicka = 0;
-var clicka1 = false; // 100 clicks
 var clickt = 0;
-var clickt1 = false; // $1.00 from clicks
 
 var moneyps = pennyvalue + nickelvalue;
 
@@ -40,10 +31,7 @@ var pennylevel = 0;
 var pennycost = 0.50;
 var pennycostmultiplier = 1.25;
 var penny = false;
-var penny1 = false;
-var penny2 = false;
 var pennyt = 0;
-var pennyt1 = false;
 
 var nickelinc = 0.00;
 var nickelmultiplier = 1;
@@ -52,15 +40,50 @@ var nickellevel = 0;
 var nickelcost = 2.50;
 var nickelcostmultiplier = 1.25;
 var nickel = false;
-var nickel1 = false;
-var nickel2 = false;
 var nickelt = 0;
-var nickelt1 = false;
 
-var total1 = false;
-var total2 = false;
-var total3 = false;
-var total4 = false;
+const upgradesList = [
+    //{id:, type:"", utype:"", name:"", required:, multiplier:, status:false, crequired:,color:},
+    {id:1, type:"clicka", utype:"click", name:"100 Clicks", required:0.50, multiplier:1.5, status:false, crequired:100, color:3, purchased:false},
+    {id:2, type:"clicka", utype:"click", name:"250 Clicks", required:2.50, multiplier:1.5, status:false, crequired:250, color:3, purchased:false},
+    {id:3, type:"clicka", utype:"click", name:"500 Clicks", required:10, multiplier:1.5, status:false, crequired:500, color:3, purchased:false},
+    {id:4, type:"clicka", utype:"click", name:"1,000 Clicks", required:50, multiplier:2, status:false, crequired:1000, color:3, purchased:false},
+    {id:5, type:"clicka", utype:"click", name:"2,500 Clicks", required:250, multiplier:2, status:false, crequired:2500, color:3, purchased:false},
+    {id:6, type:"clicka", utype:"click", name:"5,000 Clicks", required:1000, multiplier:2, status:false, crequired:5000, color:3, purchased:false},
+    {id:7, type:"clicka", utype:"click", name:"10,000 Clicks", required:5000, multiplier:3, status:false, crequired:10000, color:3, purchased:false},
+    {id:8, type:"clicka", utype:"click", name:"25,000 Clicks", required:25000, multiplier:3, status:false, crequired:25000, color:3, purchased:false},
+    {id:9, type:"clicka", utype:"click", name:"50,000 Clicks", required:100000, multiplier:3, status:false, crequired:50000, color:3, purchased:false},
+
+    {id:10, type:"clickt", utype:"click", name:"Clicks = $1.00", required:1, multiplier:1.5, status:false, crequired:1,color:2, purchased:false},
+    {id:11, type:"clickt", utype:"click", name:"Clicks = $10.00", required:10, multiplier:1.5, status:false, crequired:10,color:2, purchased:false},
+    {id:12, type:"clickt", utype:"click", name:"Clicks = $100.00", required:100, multiplier:1.5, status:false, crequired:100,color:2, purchased:false},
+    {id:13, type:"clickt", utype:"click", name:"Clicks = $1.000a", required:1000, multiplier:1.5, status:false, crequired:1000,color:2, purchased:false},
+    {id:14, type:"clickt", utype:"click", name:"Clicks = $10.00a", required:10000, multiplier:1.5, status:false, crequired:10000,color:2, purchased:false},
+
+    {id:15, type:"clickl", utype:"click", name:"Click Upgrade I", required:1, multiplier:2, status:false, crequired:10,color:1, purchased:false},
+    {id:16, type:"clickl", utype:"click", name:"Click Upgrade II", required:30, multiplier:2, status:false, crequired:25,color:1, purchased:false},
+    {id:17, type:"clickl", utype:"click", name:"Click Upgrade III", required:7500, multiplier:2, status:false, crequired:50,color:1, purchased:false},
+
+    {id:18, type:"pennyt", utype:"penny", name:"Pennies = $1.00", required:1, multiplier:1.5, status:false, crequired:1,color:2, purchased:false},
+    {id:19, type:"pennyt", utype:"penny", name:"Pennies = $10.00", required:10, multiplier:1.5, status:false, crequired:10,color:2, purchased:false},
+    {id:20, type:"pennyt", utype:"penny", name:"Pennies = $100.00", required:100, multiplier:1.5, status:false, crequired:100,color:2, purchased:false},
+    {id:21, type:"pennyt", utype:"penny", name:"Pennies = $1.000a", required:1000, multiplier:1.5, status:false, crequired:1000,color:2, purchased:false},
+    {id:22, type:"pennyt", utype:"penny", name:"Pennies = $10.00a", required:10000, multiplier:1.5, status:false, crequired:10000,color:2, purchased:false},
+
+    {id:23, type:"pennyl", utype:"penny", name:"Penny Upgrade I", required:5, multiplier:2, status:false, crequired:10,color:1, purchased:false},
+    {id:24, type:"pennyl", utype:"penny", name:"Penny Upgrade II", required:150, multiplier:2, status:false, crequired:25,color:1, purchased:false},
+    {id:25, type:"pennyl", utype:"penny", name:"Penny Upgrade III", required:40000, multiplier:2, status:false, crequired:50,color:1, purchased:false},
+
+    {id:26, type:"nickelt", utype:"nickel", name:"Nickels = $5.00", required:5, multiplier:1.5, status:false, crequired:5,color:2, purchased:false},
+    {id:27, type:"nickelt", utype:"nickel", name:"Nickels = $50.00", required:50, multiplier:1.5, status:false, crequired:50,color:2, purchased:false},
+    {id:28, type:"nickelt", utype:"nickel", name:"Nickels = $500.00", required:500, multiplier:1.5, status:false, crequired:500,color:2, purchased:false},
+    {id:29, type:"nickelt", utype:"nickel", name:"Nickels = $5.000a", required:5000, multiplier:1.5, status:false, crequired:5000,color:2, purchased:false},
+    {id:30, type:"nickelt", utype:"nickel", name:"Nickels = $50.00a", required:50000, multiplier:1.5, status:false, crequired:50000,color:2, purchased:false},
+
+    {id:31, type:"nickell", utype:"nickel", name:"Nickel Upgrade I", required:25, multiplier:2, status:false, crequired:10,color:1, purchased:false},
+    {id:32, type:"nickell", utype:"nickel", name:"Nickel Upgrade II", required:750, multiplier:2, status:false, crequired:25,color:1,purchased:false},
+    {id:33, type:"nickell", utype:"nickel", name:"Nickel Upgrade III", required:200000, multiplier:2, status:false, crequired:50,color:1, purchased:false},
+];
 
 const achievementsList = [
     {id:1, type:"clicks", name:"Clicked 100 Times", required:100, achieved:false},
@@ -122,29 +145,169 @@ const achievementsList = [
     {id:45, type:"money", name:"Have a Net Worth of $100.00", required:100, achieved:false},
     {id:46, type:"money", name:"Have a Net Worth of $1.000a", required:1000, achieved:false},
     {id:47, type:"money", name:"Have a Net Worth of $10.00a", required:10000, achieved:false},
+    {id:48, type:"money", name:"Have a Net Worth of $100.0a", required:100000, achieved:false},
 
-    {id:48, type:"moneyt", name:"Earn a total of $10.00", required:10, achieved:false},
-    {id:49, type:"moneyt", name:"Earn a total of $100.00", required:100, achieved:false},
-    {id:50, type:"moneyt", name:"Earn a total of $1.000a", required:1000, achieved:false},
-    {id:51, type:"moneyt", name:"Earn a total of $10.00a", required:10000, achieved:false},
-    {id:52, type:"moneyt", name:"Earn a total of $100.0a", required:100000, achieved:false},
+    {id:49, type:"moneyt", name:"Earn a total of $10.00", required:10, achieved:false},
+    {id:50, type:"moneyt", name:"Earn a total of $100.00", required:100, achieved:false},
+    {id:51, type:"moneyt", name:"Earn a total of $1.000a", required:1000, achieved:false},
+    {id:52, type:"moneyt", name:"Earn a total of $10.00a", required:10000, achieved:false},
+    {id:53, type:"moneyt", name:"Earn a total of $100.0a", required:100000, achieved:false},
+    {id:54, type:"moneyt", name:"Earn a total of $1.000b", required:1000000, achieved:false},
 
-    {id:53, type:"ps", name:"Make 10.0¢ per Second", required:0.1, achieved:false},
-    {id:54, type:"ps", name:"Make $1.00 per Second", required:1, achieved:false},
-    {id:55, type:"ps", name:"Make $10.00 per Second", required:10, achieved:false},
+    {id:55, type:"ps", name:"Make 10.0¢ per Second", required:0.1, achieved:false},
+    {id:56, type:"ps", name:"Make $1.00 per Second", required:1, achieved:false},
+    {id:57, type:"ps", name:"Make $10.00 per Second", required:10, achieved:false},
 
-    {id:56, type:"time", name:"Played for 1 Minute", required:60, achieved:false},
-    {id:57, type:"time", name:"Played for 5 Minutes", required:300, achieved:false},
-    {id:58, type:"time", name:"Played for 10 Minutes", required:600, achieved:false},
-    {id:59, type:"time", name:"Played for 30 Minutes", required:1800, achieved:false},
-    {id:60, type:"time", name:"Played for 1 Hour", required:3600, achieved:false},
+    {id:58, type:"time", name:"Played for 1 Minute", required:60, achieved:false},
+    {id:59, type:"time", name:"Played for 5 Minutes", required:300, achieved:false},
+    {id:60, type:"time", name:"Played for 10 Minutes", required:600, achieved:false},
+    {id:61, type:"time", name:"Played for 30 Minutes", required:1800, achieved:false},
+    {id:62, type:"time", name:"Played for 1 Hour", required:3600, achieved:false},
 
-    {id:61, type:"upgrades", name:"Upgrade 1 Time", required:1, achieved:false},
-    {id:62, type:"upgrades", name:"Upgrade 5 Times", required:5, achieved:false},
-    {id:63, type:"upgrades", name:"Upgrade 10 Times", required:10, achieved:false},
-    {id:64, type:"upgrades", name:"Upgrade Everything", required:11, achieved:false},
+    {id:63, type:"upgrades", name:"Upgrade 1 Time", required:1, achieved:false},
+    {id:64, type:"upgrades", name:"Upgrade 5 Times", required:5, achieved:false},
+    {id:65, type:"upgrades", name:"Upgrade 10 Times", required:10, achieved:false},
+    {id:66, type:"upgrades", name:"Upgrade 25 Times", required:25, achieved:false},
+    {id:67, type:"upgrades", name:"Upgrade Everything", required:33, achieved:false},
 ];
 
+function upgrades() {
+    upgradesList.forEach(upgrade => {
+        if(!upgrade.purchased){
+            if(upgrade.type == "clicka" && upgrade.status == false){
+                if(clicka >= upgrade.crequired){
+                    upgrade.status = true;
+                    createUpgrade(upgrade);
+                }
+            }
+            if(upgrade.type == "clickt" && upgrade.status == false){
+                if(clickt >= upgrade.crequired) {
+                    upgrade.status = true;
+                    createUpgrade(upgrade);
+                }
+            }
+            if(upgrade.type == "clickl" && upgrade.status == false){
+                if(clickupgradelevel >= upgrade.crequired){
+                    upgrade.status = true;
+                    createUpgrade(upgrade);
+                }
+            }
+            if(upgrade.type == "pennyt" && upgrade.status == false){
+                if(pennyt >= upgrade.crequired){
+                    upgrade.status = true;
+                    createUpgrade(upgrade);
+                }
+            }
+            if(upgrade.type == "pennyl" && upgrade.status == false){
+                if(pennylevel >= upgrade.crequired){
+                    upgrade.status = true;
+                    createUpgrade(upgrade);
+                }
+            }
+            if(upgrade.type == "nickelt" && upgrade.status == false){
+                if(nickelt >= upgrade.crequired){
+                    upgrade.status = true;
+                    createUpgrade(upgrade);
+                }
+            }
+            if(upgrade.type == "nickell" && upgrade.status == false){
+                if(nickellevel >= upgrade.crequired){
+                    upgrade.status = true;
+                    createUpgrade(upgrade);
+                }
+            }
+            if(upgrade.status == true){
+                createUpgrade(upgrade);
+            }
+        }
+    })
+    document.getElementById("upgradest").innerHTML = 
+        "Upgrades: " + upgradest + "/" + upgradesList.length + 
+        " (" + ((upgradest / upgradesList.length) * 100).toFixed(2) + "%)";
+}
+function upgradeType(upgrade){
+    if(upgrade.utype == "click") {
+        return "Click";
+    }
+    else if(upgrade.utype == "penny"){
+        return "Penny";
+    }
+    else if (upgrade.utype == "nickel"){
+        return "Nickel";
+    }
+}
+
+function createUpgrade(upgrade) {
+    const upgradeContainer = document.getElementById("current-upgrades");
+    upgradeContainer.innerHTML = '';
+    upgradesList
+        .filter(upgrade => upgrade.status) 
+        .sort((a, b) => a.required - b.required) 
+        .forEach(upgrade => {
+            if(!upgrade.purchased){
+                const ub = document.createElement('button');
+            ub.classList.add('secondary-upgrade');
+            if(upgrade.color == 1) {
+                ub.classList.add("color1");
+            }
+            else if(upgrade.color == 2) {
+                ub.classList.add("color2");
+            }
+            else {
+                ub.classList.add("color3");
+            }
+            const p1 = document.createElement('p');
+            p1.innerHTML = upgrade.name;
+            const p2 = document.createElement('p');
+            p2.innerHTML = upgradeType(upgrade) + " Upgrades: " + upgrade.multiplier + "x";
+            const p3 = document.createElement("p");
+            p3.innerHTML = "Upgrade Cost: " + change(upgrade.required);
+
+            ub.appendChild(p1);
+            ub.appendChild(p2);
+            ub.appendChild(p3);
+            const upgradesDiv = document.getElementById('current-upgrades');
+            if(money >= upgrade.required){
+                ub.style.filter = "grayscale(0%)";
+                ub.addEventListener("click", function(){
+                    if(upgrade.utype == "click"){
+                        upgrade.purchased = true;
+                        money -= upgrade.required
+                        incmultiplier *= upgrade.multiplier;
+                        incvalue = inc * incmultiplier;
+                        document.getElementById("moneypc").innerHTML = change(incvalue) + "/click"
+                        createUpgrade(upgrade);
+                        upgradest++;
+                    }
+                    if(upgrade.utype == "penny"){
+                        upgrade.purchased = true;
+                        money -= upgrade.required
+                        pennymultiplier *= upgrade.multiplier;
+                        pennyvalue = pennyinc * pennymultiplier;
+                        moneyvalue = pennyvalue + nickelvalue;
+                        document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
+                        createUpgrade(upgrade);
+                        upgradest++;
+                    }
+                    if(upgrade.utype == "nickel"){
+                        upgrade.purchased = true;
+                        money -= upgrade.required
+                        nickelmultiplier *= upgrade.multiplier;
+                        nickelvalue = nickelinc * nickelmultiplier;
+                        moneyvalue = pennyvalue + nickelvalue;
+                        document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
+                        createUpgrade(upgrade);
+                        upgradest++;
+                    }
+                })
+            }
+            else{
+                ub.style.filter = "grayscale(100%)";
+            }
+            upgradesDiv.appendChild(ub);
+            }
+    });
+}
 
 function achieved() {
     achievementsList.forEach(achievement => {
@@ -222,20 +385,13 @@ function achieved() {
             p.classList.add("achievement-achieved");
             p.innerText = achievement.id + ". " + achievement.name;
             achievementContainer.appendChild(p); 
-        });
+    });
 }
 
 
 const clickupgradebutton = document.getElementById("clickupgrade");
 const pennyupgradebutton = document.getElementById("pennyupgrade");
-const pennyt1button = document.getElementById("pennyt1");
 const nickelupgradebutton = document.getElementById("nickelupgrade");
-const nickelt1button = document.getElementById("nickelt1");
-
-const total1button = document.getElementById("total1");
-const total2button = document.getElementById("total2");
-const total3button = document.getElementById("total3");
-const total4button = document.getElementById("total4");
 
 function change(input) {
     if (input > 99995000) {
@@ -266,6 +422,7 @@ function change(input) {
 
 setInterval(function() {
     achieved();
+    upgrades();
     if(timestart == true) {
         seconds++; 
         timeElapsed++;
@@ -333,153 +490,36 @@ setInterval(function() {
     if(penny == true) {
         pennyt += (pennyvalue/10);
         document.getElementById("pennyt").innerHTML = "Pennies: " + change(pennyt) + " (" + change(pennyvalue) + "/second)";
-        if (pennyt >= 1 && pennyt1 == false) {
-            pennyt1button.style.display = "inline-block";
-        }
     }
     
     if(nickel == true) {
         nickelt += (nickelvalue/10);
         document.getElementById("nickelt").innerHTML = "Nickels: " + change(nickelt) + " (" + change(nickelvalue) + "/second)";
-        if (nickelt >= 5 && nickelt1 == false) {
-            nickelt1button.style.display = "inline-block";
-        }
-
     }
     
-    if(click == true){
-        if(money < clickupgradecost) {
-            document.getElementById("clickupgrade").style.backgroundColor = "gray";
-        }
-        else {
-            document.getElementById("clickupgrade").style.backgroundColor = "white";
-        }
+    
+    if(money < clickupgradecost) {
+        document.getElementById("clickupgrade").style.backgroundColor = "gray";
     }
-    if(penny == true){
-        if(money < pennycost) {
-            document.getElementById("pennyupgrade").style.backgroundColor = "gray";
-        }
-        else {
-            document.getElementById("pennyupgrade").style.backgroundColor = "white";
-        }
+    else {
+        document.getElementById("clickupgrade").style.backgroundColor = "white";
     }
-    if(nickel == true){
-        if(money < nickelcost) {
-            document.getElementById("nickelupgrade").style.backgroundColor = "gray";
-        }
-        else {
-            document.getElementById("nickelupgrade").style.backgroundColor = "white";
-        }
+
+    if(money < pennycost) {
+        document.getElementById("pennyupgrade").style.backgroundColor = "gray";
     }
-    if(click1 == false){
-        if(money < 1) {
-            document.getElementById("click1").style.filter = "grayscale(100%)";
-        }
-        else {
-            document.getElementById("click1").style.filter = "grayscale(0%)";
-        }
+    else {
+        document.getElementById("pennyupgrade").style.backgroundColor = "white";
     }
-    if(click2 == false){
-        if(money < 30) {
-            document.getElementById("click2").style.filter = "grayscale(100%)";
-        }
-        else {
-            document.getElementById("click2").style.filter = "grayscale(0%)";
-        }
+
+    if(money < nickelcost) {
+        document.getElementById("nickelupgrade").style.backgroundColor = "gray";
     }
-    if(click3 == false){
-        if(money < 7500) {
-            document.getElementById("click3").style.filter = "grayscale(100%)";
-        }
-        else {
-            document.getElementById("click3").style.filter = "grayscale(0%)";
-        }
+    else {
+        document.getElementById("nickelupgrade").style.backgroundColor = "white";
     }
-    if(clicka1 == true){
-        if(money < 0.5) {
-            document.getElementById("clicka1").style.filter = "grayscale(100%)";
-        }
-        else {
-            document.getElementById("clicka1").style.filter = "grayscale(0%)";
-        }
-    }
-    if(clickt1 == true){
-        if(money < 1) {
-            document.getElementById("clickt1").style.filter = "grayscale(100%)";
-        }
-        else {
-            document.getElementById("clickt1").style.filter = "grayscale(0%)";
-        }
-    }
-    if(penny1 == false){
-        if(money < 5) {
-            document.getElementById("penny1").style.filter = "grayscale(100%)";
-        }
-        else {
-            document.getElementById("penny1").style.filter = "grayscale(0%)";
-        }
-    }
-    if(penny2 == false){
-        if(money < 150) {
-            document.getElementById("penny2").style.filter = "grayscale(100%)";
-        }
-        else {
-            document.getElementById("penny2").style.filter = "grayscale(0%)";
-        }
-    }
-    if(pennyt1 == true){
-        if(money < 1) {
-            document.getElementById("pennyt1").style.filter = "grayscale(100%)";
-        }
-        else {
-            document.getElementById("pennyt1").style.filter = "grayscale(0%)";
-        }
-    }
-    if(nickel1 == false){
-        if(money < 25) {
-            document.getElementById("nickel1").style.filter = "grayscale(100%)";
-        }
-        else {
-            document.getElementById("nickel1").style.filter = "grayscale(0%)";
-        }
-    }
-    if(nickel2 == false){
-        if(money < 750) {
-            document.getElementById("nickel2").style.filter = "grayscale(100%)";
-        }
-        else {
-            document.getElementById("nickel2").style.filter = "grayscale(0%)";
-        }
-    }
-    if(nickelt1 == true){
-        if(money < 5) {
-            document.getElementById("nickelt1").style.filter = "grayscale(100%)";
-        }
-        else {
-            document.getElementById("nickelt1").style.filter = "grayscale(0%)";
-        }
-    }
-    /*if(moneyt >= 10 && total1 == false) {
-        total1button.style.display = "inline-block";
-    }
-    if(moneyt >= 25 && total2 == false) {
-        total2button.style.display = "inline-block";
-    }
-    if(moneyt >= 50 && total3 == false) {
-        total3button.style.display = "inline-block";
-    }
-    if(moneyt >= 100 && total4 == false) {
-        total4button.style.display = "inline-block";
-    }*/
 }, 100);
 
-function upgradesTotal() {
-    upgradest++;
-    document.getElementById("upgradest").innerHTML = "Total Upgrades: " + upgradest + "/11 (" + ((upgradest/11)*100).toFixed(1) + "%)";
-}
-
-const clicka1button = document.getElementById("clicka1");
-const clickt1button = document.getElementById("clickt1");
 const button = document.getElementById("button");
 button.addEventListener("click", function() {
     timestart = true;
@@ -489,19 +529,8 @@ button.addEventListener("click", function() {
     clicka += 1;
     document.getElementById("click").innerHTML = "Clicks: " + clicka.toLocaleString();
     document.getElementById("clickt").innerHTML = "Clicks: " + change(clickt);
-    if(clicka >= 100 && clicka1 == false) {
-        clicka1button.style.display = "inline-block";
-        clicka1 = true;
-    }
-    if(clickt >= 1 && clickt1 == false) {
-        clickt1button.style.display = "inline-block";
-        clickt1 = true;
-    }
 })
 
-const click1button = document.getElementById("click1");
-const click2button = document.getElementById("click2");
-const click3button = document.getElementById("click3");
 clickupgradebutton.addEventListener("click", function() {
     if (money >= clickupgradecost) {
         money -= clickupgradecost;
@@ -513,19 +542,8 @@ clickupgradebutton.addEventListener("click", function() {
         document.getElementById("clickupgradecost").innerHTML = "Upgrade Cost: " + change(clickupgradecost);
         document.getElementById("moneypc").innerHTML = change(incvalue) + "/click" 
     }
-    if(clickupgradelevel >= 10 && click1 == false) {
-        click1button.style.display = "inline-block";
-    }
-    if(clickupgradelevel >= 25 && click2 == false) {
-        click2button.style.display = "inline-block";
-    }
-    if(clickupgradelevel >= 50 && click3 == false) {
-        click3button.style.display = "inline-block";
-    }
 })
 
-const penny1button = document.getElementById("penny1");
-const penny2button = document.getElementById("penny2");
 pennyupgradebutton.addEventListener("click", function() {
     if(money >= pennycost){
         money-= pennycost;
@@ -538,16 +556,8 @@ pennyupgradebutton.addEventListener("click", function() {
         document.getElementById("pennycost").innerHTML = "Upgrade Cost: " + change(pennycost); 
         document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
     }
-    if(pennylevel >= 10 && penny1 == false) {
-        penny1button.style.display = "inline-block";
-    }
-    if(pennylevel >= 25 && penny2 == false) {
-        penny2button.style.display = "inline-block";
-    }
 })
 
-const nickel1button = document.getElementById("nickel1");
-const nickel2button = document.getElementById("nickel2");
 nickelupgradebutton.addEventListener("click", function() {
     if(money >= nickelcost){
         money -= nickelcost;
@@ -559,193 +569,5 @@ nickelupgradebutton.addEventListener("click", function() {
         document.getElementById("nickellevel").innerHTML = "Level: " + nickellevel + "   ";
         document.getElementById("nickelcost").innerHTML = "Upgrade Cost: " + change(nickelcost); 
         document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
-    }
-    if(nickellevel >= 10 && nickel1 == false) {
-        nickel1button.style.display = "inline-block";
-    }
-    if(nickellevel >= 25 && nickel2 == false) {
-        nickel2button.style.display = "inline-block";
-    }
-})
-
-click1button.addEventListener("click", function() {
-    if(money >= 1.00) {
-        money -= 1.00;
-        click1 = true;
-        incmultiplier *= 2;
-        incvalue = inc * incmultiplier;
-        document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
-        click1button.style.display = "none"
-        upgradesTotal();
-    }
-})
-
-click2button.addEventListener("click", function() {
-    if(money >= 30.00) {
-        money -= 30.00;
-        click2 = true;
-        incmultiplier *= 2;
-        incvalue = inc * incmultiplier;
-        document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
-        click2button.style.display = "none"
-        upgradesTotal();
-    }
-})
-
-click3button.addEventListener("click", function() {
-    if(money >= 7500) {
-        money -= 7500;
-        click3 = true;
-        incmultiplier *= 2;
-        incvalue = inc * incmultiplier;
-        document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
-        click3button.style.display = "none"
-        upgradesTotal();
-    }
-})
-
-clicka1button.addEventListener("click", function() {
-    if(money >= 0.50) {
-        money -= 0.50;
-        clicka1 = true;
-        incmultiplier *= 2;
-        incvalue = inc * incmultiplier;
-        document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
-        clicka1button.style.display = "none"
-        upgradesTotal();
-    }
-})
-
-clickt1button.addEventListener("click", function() {
-    if(money >= 1.00) {
-        money -= 1.00;
-        clickt1 = true;
-        incmultiplier *= 1.5;
-        incvalue = inc * incmultiplier;
-        document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
-        clickt1button.style.display = "none"
-        upgradesTotal();
-    }
-})
-
-penny1button.addEventListener("click", function() {
-    if(money >= 5.00) {
-        money -= 5.00;
-        penny1 = true;
-        pennymultiplier *= 2;
-        pennyvalue = pennyinc * pennymultiplier;
-        moneyvalue = pennyvalue + nickelvalue;
-        document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
-        penny1button.style.display = "none";
-        upgradesTotal();
-    }
-})
-
-penny2button.addEventListener("click", function() {
-    if(money >= 150.00) {
-        money -= 150.00;
-        penny2 = true;
-        pennymultiplier *= 2;
-        pennyvalue = pennyinc * pennymultiplier;
-        moneyvalue = pennyvalue + nickelvalue;
-        document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
-        penny2button.style.display = "none";
-        upgradesTotal();
-    }
-})
-
-pennyt1button.addEventListener("click", function() {
-    if(money >= 1.00) {
-        money -= 1.00;
-        pennyt1 = true;
-        pennymultiplier *= 1.5;
-        pennyvalue = pennyinc * pennymultiplier;
-        moneyvalue = pennyvalue + nickelvalue;
-        document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
-        pennyt1button.style.display = "none";
-        upgradesTotal();
-    }
-})
-
-nickel1button.addEventListener("click", function() {
-    if(money >= 25.00) {
-        money -= 25.00;
-        nickel1 = true;
-        nickelmultiplier *= 2;
-        nickelvalue = nickelinc * nickelmultiplier;
-        moneyvalue = pennyvalue + nickelvalue;
-        document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
-        nickel1button.style.display = "none";
-        upgradesTotal();
-    }
-})
-
-nickel2button.addEventListener("click", function() {
-    if(money >= 750.00) {
-        money -= 750.00;
-        nickel2 = true;
-        nickelmultiplier *= 2;
-        nickelvalue = nickelinc * nickelmultiplier;
-        moneyvalue = pennyvalue + nickelvalue;
-        document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
-        nickel2button.style.display = "none";
-        upgradesTotal();
-    }
-})
-
-nickelt1button.addEventListener("click", function() {
-    if(money >= 5) {
-        money -= 5;
-        nickelt1 = true;
-        nickelmultiplier *= 1.5;
-        nickelvalue = nickelinc * nickelmultiplier;
-        moneyvalue = pennyvalue + nickelvalue;
-        document.getElementById("moneyps").innerHTML = change(moneyvalue) + "/second";
-        nickelt1button.style.display = "none";
-        upgradesTotal();
-    }
-})
-
-total1button.addEventListener("click", function() {
-    if(money >= 2.50) {
-        money -= 2.50;
-        total1 = true;
-        incmultiplier *= 1.5;
-        incvalue = inc * incmultiplier;
-        document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
-        total1button.style.display = "none"
-    }
-})
-
-total2button.addEventListener("click", function() {
-    if(money >= 6.25) {
-        money -= 6.25;
-        total2 = true;
-        incmultiplier *= 1.5;
-        incvalue = inc * incmultiplier;
-        document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
-        total2button.style.display = "none"
-    }
-})
-
-total3button.addEventListener("click", function() {
-    if(money >= 12.5) {
-        money -= 12.5;
-        total3 = true;
-        incmultiplier *= 1.5;
-        incvalue = inc * incmultiplier;
-        document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
-        total3button.style.display = "none"
-    }
-})
-
-total4button.addEventListener("click", function() {
-    if(money >= 25) {
-        money -= 25;
-        total4 = true;
-        incmultiplier *= 1.5;
-        incvalue = inc * incmultiplier;
-        document.getElementById("moneypc").innerHTML = change(incvalue) + "/click";
-        total4button.style.display = "none"
     }
 })
