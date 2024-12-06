@@ -2,7 +2,8 @@ var money = 0.00;
 var achievementcounter = 0;
 var moneyt = 0.00;
 var upgradest = 0;
-var timeElapsed = 0;
+var timeElapsed;
+var time = 0;
 var seconds = 0;
 var stringseconds;
 var minutes = 0;
@@ -22,8 +23,6 @@ var click = false;
 var clicka = 0;
 var clickt = 0;
 
-var moneyps = pennyvalue + nickelvalue;
-
 var pennyinc = 0.00;
 var pennymultiplier = 1;
 var pennyvalue = pennyinc * pennymultiplier;
@@ -41,6 +40,9 @@ var nickelcost = 2.50;
 var nickelcostmultiplier = 1.25;
 var nickel = false;
 var nickelt = 0;
+
+let lastUpdate = Date.now();
+let moneyps = pennyvalue + nickelvalue;
 
 const upgradesList = [
     //{id:, type:"", utype:"", name:"", required:, multiplier:, status:false, crequired:,color:},
@@ -93,82 +95,86 @@ const achievementsList = [
     {id:5, type:"clicks", name:"Clicked 2,500 Times", required:2500, achieved:false},
     {id:6, type:"clicks", name:"Clicked 5,000 Times", required:5000, achieved:false},
     {id:7, type:"clicks", name:"Clicked 10,000 Times", required:10000, achieved:false},
+    {id:8, type:"clicks", name:"Clicked 25,000 Times", required:25000, achieved:false},
+    {id:9, type:"clicks", name:"Clicked 50,000 Times", required:50000, achieved:false},
 
-    {id:8, type:"clickv", name:"Earn $1.00 from Clicks", required:1, achieved:false},
-    {id:9, type:"clickv", name:"Earn $10.00 from Clicks", required:10, achieved:false},
-    {id:10, type:"clickv", name:"Earn $100.00 from Clicks", required:100, achieved:false},
-    {id:11, type:"clickv", name:"Earn $1.000a from Clicks", required:1000, achieved:false},
-    {id:12, type:"clickv", name:"Earn $10.00a from Clicks", required:10000, achieved:false},
+    {id:10, type:"clickv", name:"Earn $1.00 from Clicks", required:1, achieved:false},
+    {id:11, type:"clickv", name:"Earn $10.00 from Clicks", required:10, achieved:false},
+    {id:12, type:"clickv", name:"Earn $100.00 from Clicks", required:100, achieved:false},
+    {id:13, type:"clickv", name:"Earn $1.000a from Clicks", required:1000, achieved:false},
+    {id:14, type:"clickv", name:"Earn $10.00a from Clicks", required:10000, achieved:false},
 
-    {id:13, type:"clickl", name:"Upgrade Clicks to Level 1", required:1, achieved:false},
-    {id:14, type:"clickl", name:"Upgrade Clicks to Level 10", required:10, achieved:false},
-    {id:15, type:"clickl", name:"Upgrade Clicks to Level 25", required:25, achieved:false},
-    {id:16, type:"clickl", name:"Upgrade Clicks to Level 50", required:50, achieved:false},
+    {id:15, type:"clickl", name:"Upgrade Clicks to Level 1", required:1, achieved:false},
+    {id:16, type:"clickl", name:"Upgrade Clicks to Level 10", required:10, achieved:false},
+    {id:17, type:"clickl", name:"Upgrade Clicks to Level 25", required:25, achieved:false},
+    {id:18, type:"clickl", name:"Upgrade Clicks to Level 50", required:50, achieved:false},
 
-    {id:17, type:"pc", name:"Make 10.0¢ per Click", required:0.1, achieved:false},
-    {id:18, type:"pc", name:"Make 25.0¢ per Click", required:0.25, achieved:false},
-    {id:19, type:"pc", name:"Make 50.0¢ per Click", required:0.5, achieved:false},
-    {id:20, type:"pc", name:"Make $1.00 per Click", required:1, achieved:false},
-
-
-    {id:21, type:"pennyv", name:"Earn $1.00 from Pennies", required:1, achieved:false},
-    {id:22, type:"pennyv", name:"Earn $10.00 from Pennies", required:10, achieved:false},
-    {id:23, type:"pennyv", name:"Earn $100.00 from Pennies", required:100, achieved:false},
-    {id:24, type:"pennyv", name:"Earn $1.000a from Pennies", required:1000, achieved:false},
-    {id:25, type:"pennyv", name:"Earn $10.00a from Pennies", required:10000, achieved:false},
-
-    {id:26, type:"pennyl", name:"Upgrade Pennies to Level 1", required:1, achieved:false},
-    {id:27, type:"pennyl", name:"Upgrade Pennies to Level 10", required:10, achieved:false},
-    {id:28, type:"pennyl", name:"Upgrade Pennies to Level 25", required:25, achieved:false},
-
-    {id:29, type:"pennyps", name:"Make 10.0¢ per Second from Pennies", required:0.1, achieved:false},
-    {id:30, type:"pennyps", name:"Make 50.0¢ per Second from Pennies", required:0.5, achieved:false},
-    {id:31, type:"pennyps", name:"Make $1.00 per Second from Pennies", required:1, achieved:false},
+    {id:19, type:"pc", name:"10.0¢ per Click", required:0.1, achieved:false},
+    {id:20, type:"pc", name:"$1.00 per Click", required:1, achieved:false},
+    {id:21, type:"pc", name:"$10.00 per Click", required:10, achieved:false},
+    {id:22, type:"pc", name:"$100.00 per Click", required:100, achieved:false},
+    {id:23, type:"pc", name:"$1.000a per Click", required:1000, achieved:false},
 
 
-    {id:32, type:"nickelv", name:"Earn $5.00 from Nickels", required:5, achieved:false},
-    {id:33, type:"nickelv", name:"Earn $25.00 from Nickels", required:25, achieved:false},
-    {id:34, type:"nickelv", name:"Earn $100.00 from Nickels", required:100, achieved:false},
-    {id:35, type:"nickelv", name:"Earn $1.000a from Nickels", required:1000, achieved:false},
-    {id:36, type:"nickelv", name:"Earn $10.00a from Nickels", required:10000, achieved:false},
+    {id:24, type:"pennyv", name:"Earn $1.00 from Pennies", required:1, achieved:false},
+    {id:25, type:"pennyv", name:"Earn $10.00 from Pennies", required:10, achieved:false},
+    {id:26, type:"pennyv", name:"Earn $100.00 from Pennies", required:100, achieved:false},
+    {id:27, type:"pennyv", name:"Earn $1.000a from Pennies", required:1000, achieved:false},
+    {id:28, type:"pennyv", name:"Earn $10.00a from Pennies", required:10000, achieved:false},
 
-    {id:37, type:"nickell", name:"Upgrade Nickels to Level 1", required:1, achieved:false},
-    {id:38, type:"nickell", name:"Upgrade Nickels to Level 10", required:10, achieved:false},
-    {id:39, type:"nickell", name:"Upgrade Nickels to Level 25", required:25, achieved:false},
+    {id:29, type:"pennyl", name:"Upgrade Pennies to Level 1", required:1, achieved:false},
+    {id:30, type:"pennyl", name:"Upgrade Pennies to Level 10", required:10, achieved:false},
+    {id:31, type:"pennyl", name:"Upgrade Pennies to Level 25", required:25, achieved:false},
+    {id:32, type:"pennyl", name:"Upgrade Pennies to Level 50", required:50, achieved:false},
 
-    {id:40, type:"nickelps", name:"Make 50.0¢ per Second from Nickels", required:0.5, achieved:false},
-    {id:41, type:"nickelps", name:"Make $1.00 per Second from Nickels", required:1, achieved:false},
-    {id:42, type:"nickelps", name:"Make $5.00 per Second from Nickels", required:5, achieved:false},
-    {id:43, type:"nickelps", name:"Make $10.00 per Second from Nickels", required:10, achieved:false},
+    {id:33, type:"pennyps", name:"10.0¢ per Second from Pennies", required:0.1, achieved:false},
+    {id:34, type:"pennyps", name:"$1.00 per Second from Pennies", required:1, achieved:false},
+    {id:35, type:"pennyps", name:"$10.00 per Second from Pennies", required:10, achieved:false},
 
-    {id:44, type:"money", name:"Have a Net Worth of $10.00", required:10, achieved:false},
-    {id:45, type:"money", name:"Have a Net Worth of $100.00", required:100, achieved:false},
-    {id:46, type:"money", name:"Have a Net Worth of $1.000a", required:1000, achieved:false},
-    {id:47, type:"money", name:"Have a Net Worth of $10.00a", required:10000, achieved:false},
-    {id:48, type:"money", name:"Have a Net Worth of $100.0a", required:100000, achieved:false},
 
-    {id:49, type:"moneyt", name:"Earn a total of $10.00", required:10, achieved:false},
-    {id:50, type:"moneyt", name:"Earn a total of $100.00", required:100, achieved:false},
-    {id:51, type:"moneyt", name:"Earn a total of $1.000a", required:1000, achieved:false},
-    {id:52, type:"moneyt", name:"Earn a total of $10.00a", required:10000, achieved:false},
-    {id:53, type:"moneyt", name:"Earn a total of $100.0a", required:100000, achieved:false},
-    {id:54, type:"moneyt", name:"Earn a total of $1.000b", required:1000000, achieved:false},
+    {id:36, type:"nickelv", name:"Earn $5.00 from Nickels", required:5, achieved:false},
+    {id:37, type:"nickelv", name:"Earn $50.00 from Nickels", required:50, achieved:false},
+    {id:38, type:"nickelv", name:"Earn $500.00 from Nickels", required:500, achieved:false},
+    {id:39, type:"nickelv", name:"Earn $5.000a from Nickels", required:5000, achieved:false},
+    {id:40, type:"nickelv", name:"Earn $5.00a from Nickels", required:50000, achieved:false},
 
-    {id:55, type:"ps", name:"Make 10.0¢ per Second", required:0.1, achieved:false},
-    {id:56, type:"ps", name:"Make $1.00 per Second", required:1, achieved:false},
-    {id:57, type:"ps", name:"Make $10.00 per Second", required:10, achieved:false},
+    {id:41, type:"nickell", name:"Upgrade Nickels to Level 1", required:1, achieved:false},
+    {id:42, type:"nickell", name:"Upgrade Nickels to Level 10", required:10, achieved:false},
+    {id:43, type:"nickell", name:"Upgrade Nickels to Level 25", required:25, achieved:false},
+    {id:44, type:"nickell", name:"Upgrade Nickels to Level 50", required:50, achieved:false},
 
-    {id:58, type:"time", name:"Played for 1 Minute", required:60, achieved:false},
-    {id:59, type:"time", name:"Played for 5 Minutes", required:300, achieved:false},
-    {id:60, type:"time", name:"Played for 10 Minutes", required:600, achieved:false},
-    {id:61, type:"time", name:"Played for 30 Minutes", required:1800, achieved:false},
-    {id:62, type:"time", name:"Played for 1 Hour", required:3600, achieved:false},
+    {id:45, type:"nickelps", name:"50.0¢ per Second from Nickels", required:0.5, achieved:false},
+    {id:46, type:"nickelps", name:"$5.00 per Second from Nickels", required:5, achieved:false},
+    {id:47, type:"nickelps", name:"$50.00 per Second from Nickels", required:50, achieved:false},
 
-    {id:63, type:"upgrades", name:"Upgrade 1 Time", required:1, achieved:false},
-    {id:64, type:"upgrades", name:"Upgrade 5 Times", required:5, achieved:false},
-    {id:65, type:"upgrades", name:"Upgrade 10 Times", required:10, achieved:false},
-    {id:66, type:"upgrades", name:"Upgrade 25 Times", required:25, achieved:false},
-    {id:67, type:"upgrades", name:"Upgrade Everything", required:33, achieved:false},
+    {id:48, type:"money", name:"Have a Net Worth of $10.00", required:10, achieved:false},
+    {id:49, type:"money", name:"Have a Net Worth of $100.00", required:100, achieved:false},
+    {id:50, type:"money", name:"Have a Net Worth of $1.000a", required:1000, achieved:false},
+    {id:51, type:"money", name:"Have a Net Worth of $10.00a", required:10000, achieved:false},
+    {id:52, type:"money", name:"Have a Net Worth of $100.0a", required:100000, achieved:false},
+
+    {id:53, type:"moneyt", name:"Earn a total of $10.00", required:10, achieved:false},
+    {id:54, type:"moneyt", name:"Earn a total of $100.00", required:100, achieved:false},
+    {id:55, type:"moneyt", name:"Earn a total of $1.000a", required:1000, achieved:false},
+    {id:56, type:"moneyt", name:"Earn a total of $10.00a", required:10000, achieved:false},
+    {id:57, type:"moneyt", name:"Earn a total of $100.0a", required:100000, achieved:false},
+    {id:58, type:"moneyt", name:"Earn a total of $1.000b", required:1000000, achieved:false},
+
+    {id:59, type:"ps", name:"Make 10.0¢ per Second", required:0.1, achieved:false},
+    {id:60, type:"ps", name:"Make $1.00 per Second", required:1, achieved:false},
+    {id:61, type:"ps", name:"Make $10.00 per Second", required:10, achieved:false},
+
+    {id:62, type:"time", name:"Played for 1 Minute", required:60, achieved:false},
+    {id:63, type:"time", name:"Played for 5 Minutes", required:300, achieved:false},
+    {id:64, type:"time", name:"Played for 10 Minutes", required:600, achieved:false},
+    {id:65, type:"time", name:"Played for 30 Minutes", required:1800, achieved:false},
+    {id:66, type:"time", name:"Played for 1 Hour", required:3600, achieved:false},
+
+    {id:67, type:"upgrades", name:"Upgrade 1 Time", required:1, achieved:false},
+    {id:68, type:"upgrades", name:"Upgrade 5 Times", required:5, achieved:false},
+    {id:69, type:"upgrades", name:"Upgrade 10 Times", required:10, achieved:false},
+    {id:70, type:"upgrades", name:"Upgrade 25 Times", required:25, achieved:false},
+    {id:71, type:"upgrades", name:"Upgrade Everything", required:33, achieved:false},
 ];
 
 function upgrades() {
@@ -392,10 +398,28 @@ const pennyupgradebutton = document.getElementById("pennyupgrade");
 const nickelupgradebutton = document.getElementById("nickelupgrade");
 
 function change(input) {
-    if (input > 99995000) {
+    if (input >= 99995000000000) {
+        return "$" + (input/1000000000000).toFixed(1) + "d";
+    }
+    else if (input >= 9999500000000) {
+        return "$" + (input/1000000000000).toFixed(2) + "d";
+    }
+    else if (input >= 999950000000) {
+        return "$" + (input/1000000000000).toFixed(3) + "d";
+    }
+    else if (input >= 99995000000) {
+        return "$" + (input/1000000000).toFixed(1) + "c";
+    }
+    else if (input >= 9999500000) {
+        return "$" + (input/1000000000).toFixed(2) + "c";
+    }
+    else if (input >= 999950000) {
+        return "$" + (input/1000000000).toFixed(3) + "c";
+    }
+    else if (input >= 99995000) {
         return "$" + (input/1000000).toFixed(1) + "b";
     }
-    else if (input > 9999500) {
+    else if (input >= 9999500) {
         return "$" + (input/1000000).toFixed(2) + "b";
     }
     else if (input >= 999950) {
@@ -421,22 +445,15 @@ function change(input) {
 setInterval(function() {
     achieved();
     upgrades();
-    if(timestart == true) {
-        seconds++; 
-        timeElapsed++;
+    if(timestart == false){
+        start = Date.now();
+        console.log(start);
     }
-    if (seconds >= 60) {
-        seconds -= 60;
-        minutes++;
-    }
-    if (minutes >= 60) {
-        minutes -= 60;
-        hours++;
-    }
-    if (hours >= 24){
-        hours-=24;
-        days++;
-    }
+    timeElapsed = (Date.now() - start)/1000;
+    seconds = Math.floor(timeElapsed)%60;
+    minutes = Math.floor(timeElapsed/60)%60;
+    hours = Math.floor(timeElapsed/3600)%24;
+    days = Math.floor(timeElapsed/86400);
     if(seconds == 1) {
         stringseconds = "1 second";
     }
@@ -459,15 +476,19 @@ setInterval(function() {
         stringdays = "1 day, ";
     }
     else {
-        stringdays = days + " days, ";
+        stringdays = days.toLocaleString() + " days, ";
     }
     document.getElementById("timeelapsed").innerHTML = "Time Elapsed: " + stringdays + stringhours + stringminutes + stringseconds;
 }, 1000);
 
 setInterval(function() {
-    money += (pennyvalue + nickelvalue)/10;
-    moneyt += (pennyvalue + nickelvalue)/10;
+    const now = Date.now();
+    const deltaTime = (now - lastUpdate)/1000;
+    lastUpdate = now;
+    money += moneyps * deltaTime;
+    moneyt += moneyps * deltaTime;
     document.getElementById("money").innerHTML = change(money);
+    document.title = change(money) + " | Penny Clicker " + document.getElementById("version").innerHTML;
     document.getElementById("moneyt").innerHTML = "Total Earnings: " + change(moneyt);
 
     if(money >= 0.10 && click == false) {
