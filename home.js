@@ -392,7 +392,7 @@ function upgrades() {
     })
     document.getElementById("upgradest").innerHTML = 
         "Upgrades: " + upgradest + "/" + upgradesList.length + 
-        " (" + ((upgradest / upgradesList.length) * 100).toFixed(2) + "%)";
+        " (" + Math.round((upgradest / upgradesList.length) * 10000)/100 + "%)";
 }
 function upgradeType(upgrade){
     if(upgrade.utype == "click") {
@@ -607,7 +607,7 @@ function achieved() {
             achievementcounter++
         }
     });
-    document.getElementById("achievement-progress").innerHTML = "Achievements: " + achievementcounter + "/" + achievementsList.length + " (" + ((achievementcounter / achievementsList.length) * 100).toFixed(2) + "%)";
+    document.getElementById("achievement-progress").innerHTML = "Achievements: " + achievementcounter + "/" + achievementsList.length + " (" + Math.round((achievementcounter / achievementsList.length) * 10000)/100 + "%)";
     const achievementContainer = document.getElementById("achievement-achieved");
     achievementContainer.innerHTML = '';
     achievementsList
@@ -713,7 +713,6 @@ setInterval(function() {
     if(penny == true) {
         pennyt += pennyvalue * deltaTime;
         document.getElementById("pennyt").innerHTML = "Pennies: " + change(pennyt) + " (" + change(pennyvalue) + "/second)";
-        console.log("pennyt:" + pennyt + " pennyvalue:" + pennyvalue + " deltaTime:" + deltaTime);
     }
     
     if(nickel == true) {
@@ -738,7 +737,6 @@ setInterval(function() {
 
     if(timestart == false){
         start = Date.now();
-        console.log(start);
     }
     timeElapsed = (Date.now() - start)/1000;
     seconds = Math.floor(timeElapsed)%60;
