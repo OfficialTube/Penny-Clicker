@@ -1,4 +1,4 @@
-var money = 10000000000000.00;
+var money = 0.00;
 var achievementcounter = 0;
 var moneyt = 0.00;
 var upgradest = 0;
