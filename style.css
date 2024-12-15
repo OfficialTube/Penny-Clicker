@@ -35,9 +35,9 @@ button {
     border-radius: 200px;
     height: 200px;
     width: 200px;
-    border: 5px solid black;
+    border: none;
     background-image:url("src/1c.png");
-    background-size: 110%;
+    background-size: 101%;
     background-position: center;
     background-repeat: no-repeat;
     margin-top: 10px;
@@ -52,11 +52,13 @@ button:hover {
 }
 
 .level {
-    padding-left: 2.5%;
-    padding-right: 5%;
-    display: flex;
+    width: 120px;
     font-size: 5em;
-    align-items: center; 
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .main-upgrade {

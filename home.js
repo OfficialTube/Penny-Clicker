@@ -780,41 +780,53 @@ setInterval(function() {
 
     if(money < clickupgradecost) {
         document.getElementById("clickupgrade").style.backgroundColor = "gray";
+        document.getElementById("clickupgradecost").style.color = "darkred";
     }
     else {
         document.getElementById("clickupgrade").style.backgroundColor = "white";
+        document.getElementById("clickupgradecost").style.color = "black";
     }
 
     if(money < pennycost) {
         document.getElementById("pennyupgrade").style.backgroundColor = "gray";
+        document.getElementById("pennycost").style.color = "darkred";
     }
     else {
         document.getElementById("pennyupgrade").style.backgroundColor = "white";
+        document.getElementById("pennycost").style.color = "black";
     }
 
     if(money < nickelcost) {
         document.getElementById("nickelupgrade").style.backgroundColor = "gray";
+        document.getElementById("nickelcost").style.color = "darkred";
     }
     else {
         document.getElementById("nickelupgrade").style.backgroundColor = "white";
+        document.getElementById("nickelcost").style.color = "black";
     }
     if(money < dimecost) {
         document.getElementById("dimeupgrade").style.backgroundColor = "gray";
+        document.getElementById("dimecost").style.color = "darkred";
     }
     else {
         document.getElementById("dimeupgrade").style.backgroundColor = "white";
+        document.getElementById("dimecost").style.color = "black";
     }
     if(money < quartercost) {
         document.getElementById("quarterupgrade").style.backgroundColor = "gray";
+        document.getElementById("quartercost").style.color = "darkred";
     }
     else {
         document.getElementById("quarterupgrade").style.backgroundColor = "white";
+        document.getElementById("quartercost").style.color = "black";
     }
     if(money < halfdollarcost) {
         document.getElementById("halfdollarupgrade").style.backgroundColor = "gray";
+        document.getElementById("halfdollarcost").style.color = "darkred";
     }
     else {
         document.getElementById("halfdollarupgrade").style.backgroundColor = "white";
+        document.getElementById("halfdollarcost").style.color = "black";
     }
 }, 100);
 
