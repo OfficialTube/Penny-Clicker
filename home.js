@@ -683,27 +683,27 @@ setInterval(function() {
     moneyt += moneyps * deltaTime;
     document.getElementById("moneyt").innerHTML = "Total Earnings: " + change(moneyt);
     if(money >= 0.10 && click == false) {
-        clickupgradebutton.style.display = "inline-block";
+        clickupgradebutton.style.display = "flex";
         click = true;
     }
     if(money >= 0.50 && penny == false) {
-        pennyupgradebutton.style.display = "inline-block";
+        pennyupgradebutton.style.display = "flex";
         penny = true;
     }
     if(money >= 2.50 && nickel == false) {
-        nickelupgradebutton.style.display = "inline-block";
+        nickelupgradebutton.style.display = "flex";
         nickel = true;
     }
     if(money >= 5.00 && dime == false) {
-        dimeupgradebutton.style.display = "inline-block";
+        dimeupgradebutton.style.display = "flex";
         dime = true;
     }
     if(money >= 12.50 && quarter == false) {
-        quarterupgradebutton.style.display = "inline-block";
+        quarterupgradebutton.style.display = "flex";
         quarter = true;
     }
     if(money >= 25.00 && halfdollar == false) {
-        halfdollarupgradebutton.style.display = "inline-block";
+        halfdollarupgradebutton.style.display = "flex";
         halfdollar = true;
     }
 
@@ -780,41 +780,53 @@ setInterval(function() {
 
     if(money < clickupgradecost) {
         document.getElementById("clickupgrade").style.backgroundColor = "gray";
+        document.getElementById("clickupgradecost").style.color = "darkred";
     }
     else {
         document.getElementById("clickupgrade").style.backgroundColor = "white";
+        document.getElementById("clickupgradecost").style.color = "black";
     }
 
     if(money < pennycost) {
         document.getElementById("pennyupgrade").style.backgroundColor = "gray";
+        document.getElementById("pennycost").style.color = "darkred";
     }
     else {
         document.getElementById("pennyupgrade").style.backgroundColor = "white";
+        document.getElementById("pennycost").style.color = "black";
     }
 
     if(money < nickelcost) {
         document.getElementById("nickelupgrade").style.backgroundColor = "gray";
+        document.getElementById("nickelcost").style.color = "darkred";
     }
     else {
         document.getElementById("nickelupgrade").style.backgroundColor = "white";
+        document.getElementById("nickelcost").style.color = "black";
     }
     if(money < dimecost) {
         document.getElementById("dimeupgrade").style.backgroundColor = "gray";
+        document.getElementById("dimecost").style.color = "darkred";
     }
     else {
         document.getElementById("dimeupgrade").style.backgroundColor = "white";
+        document.getElementById("dimecost").style.color = "black";
     }
     if(money < quartercost) {
         document.getElementById("quarterupgrade").style.backgroundColor = "gray";
+        document.getElementById("quartercost").style.color = "darkred";
     }
     else {
         document.getElementById("quarterupgrade").style.backgroundColor = "white";
+        document.getElementById("quartercost").style.color = "black";
     }
     if(money < halfdollarcost) {
         document.getElementById("halfdollarupgrade").style.backgroundColor = "gray";
+        document.getElementById("halfdollarcost").style.color = "darkred";
     }
     else {
         document.getElementById("halfdollarupgrade").style.backgroundColor = "white";
+        document.getElementById("halfdollarcost").style.color = "black";
     }
 }, 100);
 
@@ -834,8 +846,8 @@ clickupgradebutton.addEventListener("click", function() {
         incvalue = inc * incmultiplier;
         clickupgradelevel++;
         clickupgradecost = clickupgradecost * clickupgradecostmultiplier;
-        document.getElementById("clickupgradelevel").innerHTML = "Level: " + clickupgradelevel;
-        document.getElementById("clickupgradecost").innerHTML = "Upgrade Cost: " + change(clickupgradecost);
+        document.getElementById("clickupgradelevel").innerHTML = clickupgradelevel;
+        document.getElementById("clickupgradecost").innerHTML = change(clickupgradecost);
         document.getElementById("moneypc").innerHTML = change(incvalue) + "/click" 
     }
 })
@@ -847,8 +859,8 @@ pennyupgradebutton.addEventListener("click", function() {
         pennylevel++;
         updateMoneyps();
         pennycost *= pennycostmultiplier;
-        document.getElementById("pennylevel").innerHTML = "Level: " + pennylevel;
-        document.getElementById("pennycost").innerHTML = "Upgrade Cost: " + change(pennycost); 
+        document.getElementById("pennylevel").innerHTML = pennylevel;
+        document.getElementById("pennycost").innerHTML = change(pennycost); 
     }
 })
 
@@ -859,8 +871,8 @@ nickelupgradebutton.addEventListener("click", function() {
         nickellevel++;
         updateMoneyps();
         nickelcost *= nickelcostmultiplier;
-        document.getElementById("nickellevel").innerHTML = "Level: " + nickellevel;
-        document.getElementById("nickelcost").innerHTML = "Upgrade Cost: " + change(nickelcost); 
+        document.getElementById("nickellevel").innerHTML = nickellevel;
+        document.getElementById("nickelcost").innerHTML = change(nickelcost); 
     }
 })
 
@@ -871,8 +883,8 @@ dimeupgradebutton.addEventListener("click", function() {
         dimelevel++;
         updateMoneyps();
         dimecost *= dimecostmultiplier;
-        document.getElementById("dimelevel").innerHTML = "Level: " + dimelevel;
-        document.getElementById("dimecost").innerHTML = "Upgrade Cost: " + change(dimecost); 
+        document.getElementById("dimelevel").innerHTML = dimelevel;
+        document.getElementById("dimecost").innerHTML = change(dimecost); 
     }
 })
 
@@ -883,8 +895,8 @@ quarterupgradebutton.addEventListener("click", function() {
         quarterlevel++;
         updateMoneyps();
         quartercost *= quartercostmultiplier;
-        document.getElementById("quarterlevel").innerHTML = "Level: " + quarterlevel;
-        document.getElementById("quartercost").innerHTML = "Upgrade Cost: " + change(quartercost); 
+        document.getElementById("quarterlevel").innerHTML = quarterlevel;
+        document.getElementById("quartercost").innerHTML = change(quartercost); 
     }
 })
 
@@ -895,7 +907,7 @@ halfdollarupgradebutton.addEventListener("click", function() {
         halfdollarlevel++;
         updateMoneyps();
         halfdollarcost *= halfdollarcostmultiplier;
-        document.getElementById("halfdollarlevel").innerHTML = "Level: " + halfdollarlevel;
-        document.getElementById("halfdollarcost").innerHTML = "Upgrade Cost: " + change(halfdollarcost); 
+        document.getElementById("halfdollarlevel").innerHTML = halfdollarlevel;
+        document.getElementById("halfdollarcost").innerHTML = change(halfdollarcost); 
     }
 })
