@@ -3,20 +3,26 @@ body {
     background-color: rgb(11, 85, 11);
     color: white;
     touch-action: manipulation;
+    
 }
 .header {
     background-color: black;
-    content: 100%;
-    display: block;
-}
-.subheader {
-    justify-content: center;
     display: flex;
+    justify-content: center;
+    gap: 20px;
+    white-space: nowrap;
+    flex-wrap:nowrap;
+    overflow-x: auto;
+    max-width:100%;
 }
-.hs {
-    margin-left: 10px;
-    margin-right: 10px;
+.rlc {
+    color: white;
 }
+
+.header.left-aligned {
+    justify-content: flex-start;
+}
+
 #money, #moneypc, #moneyps, .buttondiv{
     justify-content: center;
     display: flex;
@@ -36,15 +42,49 @@ button {
     height: 200px;
     width: 200px;
     border: none;
-    background-image:url("src/1c.png");
+    background-image:url("/src/1c.png");
     background-size: 101%;
     background-position: center;
     background-repeat: no-repeat;
     margin-top: 10px;
     margin-bottom: 25px;
+    transition: transform 0.2s ease;
 }
 button:hover {
     cursor: pointer;
+}
+.float-value {
+    position: absolute;
+    font-weight: bold;
+    animation: floatUp 1s forwards;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
+  
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+@keyframes buttonShrink {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.button-shrink {
+    animation: buttonShrink 0.2s ease forwards;
 }
 
 .main-upgrade p {

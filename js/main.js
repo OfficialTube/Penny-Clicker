@@ -70,7 +70,8 @@ var halfdollart = 0;
 
 let lastUpdate = Date.now();
 let lastUpdateA = Date.now();
-let moneyps = pennyvalue + nickelvalue + dimevalue;
+let lastClick = Date.now();
+let moneyps = pennyvalue + nickelvalue + dimevalue + quartervalue + halfdollarvalue;
 
 function updateMoneyps(){
     pennyvalue = pennyinc * pennymultiplier;
@@ -449,53 +450,64 @@ function createUpgrade(upgrade) {
                 ub.style.filter = "grayscale(0%)";
                 ub.addEventListener("click", function(){
                     if(upgrade.utype == "click"){
-                        upgrade.purchased = true;
-                        money -= upgrade.required
-                        incmultiplier *= upgrade.multiplier;
-                        incvalue = inc * incmultiplier;
-                        document.getElementById("moneypc").innerHTML = change(incvalue) + "/click"
-                        createUpgrade(upgrade);
-                        upgradest++;
+                        if(money >= upgrade.required){
+                            upgrade.purchased = true;
+                            money -= upgrade.required
+                            incmultiplier *= upgrade.multiplier;
+                            incvalue = inc * incmultiplier;
+                            createUpgrade(upgrade);
+                            upgradest++;
+                        }
                     }
                     if(upgrade.utype == "penny"){
-                        upgrade.purchased = true;
-                        money -= upgrade.required
-                        pennymultiplier *= upgrade.multiplier;
-                        updateMoneyps();
-                        createUpgrade(upgrade);
-                        upgradest++;
+                        if(money >= upgrade.required){
+                            upgrade.purchased = true;
+                            money -= upgrade.required
+                            pennymultiplier *= upgrade.multiplier;
+                            updateMoneyps();
+                            createUpgrade(upgrade);
+                            upgradest++;
+                        }
                     }
                     if(upgrade.utype == "nickel"){
-                        upgrade.purchased = true;
-                        money -= upgrade.required
-                        nickelmultiplier *= upgrade.multiplier;
-                        updateMoneyps();
-                        createUpgrade(upgrade);
-                        upgradest++;
+                        if(money >= upgrade.required){
+                            upgrade.purchased = true;
+                            money -= upgrade.required
+                            nickelmultiplier *= upgrade.multiplier;
+                            updateMoneyps();
+                            createUpgrade(upgrade);
+                            upgradest++;       
+                        }
                     }
                     if(upgrade.utype == "dime"){
-                        upgrade.purchased = true;
-                        money -= upgrade.required
-                        dimemultiplier *= upgrade.multiplier;
-                        updateMoneyps();
-                        createUpgrade(upgrade);
-                        upgradest++;
+                        if(money >= upgrade.required){
+                            upgrade.purchased = true;
+                            money -= upgrade.required
+                            dimemultiplier *= upgrade.multiplier;
+                            updateMoneyps();
+                            createUpgrade(upgrade);
+                            upgradest++;       
+                        }
                     }
                     if(upgrade.utype == "quarter"){
-                        upgrade.purchased = true;
-                        money -= upgrade.required
-                        quartermultiplier *= upgrade.multiplier;
-                        updateMoneyps();
-                        createUpgrade(upgrade);
-                        upgradest++;
+                        if(money >= upgrade.required){
+                            upgrade.purchased = true;
+                            money -= upgrade.required
+                            quartermultiplier *= upgrade.multiplier;
+                            updateMoneyps();
+                            createUpgrade(upgrade);
+                            upgradest++;          
+                        }
                     }
                     if(upgrade.utype == "halfdollar"){
-                        upgrade.purchased = true;
-                        money -= upgrade.required
-                        halfdollarmultiplier *= upgrade.multiplier;
-                        updateMoneyps();
-                        createUpgrade(upgrade);
-                        upgradest++;
+                        if(money >= upgrade.required){
+                            upgrade.purchased = true;
+                            money -= upgrade.required
+                            halfdollarmultiplier *= upgrade.multiplier;
+                            updateMoneyps();
+                            createUpgrade(upgrade);
+                            upgradest++; 
+                        }
                     }
                 })
             }
@@ -708,7 +720,7 @@ setInterval(function() {
     }
 
     document.getElementById("click").innerHTML = "Clicks: " + clicka.toLocaleString();
-    document.getElementById("clickt").innerHTML = "Clicks: " + change(clickt);
+    document.getElementById("clickt").innerHTML = "Clicks: " + change(clickt) + " (" + change(incvalue) + "/click)";
 
     if(penny == true) {
         pennyt += pennyvalue * deltaTime;
@@ -831,12 +843,33 @@ setInterval(function() {
 }, 100);
 
 const button = document.getElementById("button");
-button.addEventListener("click", function() {
+const container = document.getElementById("game-container");
+button.addEventListener("click", function(event) {
     timestart = true;
-    money += incvalue;
-    moneyt += incvalue;
-    clickt += incvalue;
-    clicka += 1;
+    const now = Date.now();
+    const deltaTime = now-lastClick;
+    if(deltaTime >= 67){
+        money += incvalue;
+        moneyt += incvalue;
+        clickt += incvalue;
+        clicka += 1;
+        lastClick = now;
+        button.classList.add("button-shrink");
+        button.addEventListener("animationend", () => {
+            button.classList.remove("button-shrink");
+        })
+        const floatValue = document.createElement("span");
+        floatValue.classList.add("float-value");
+        floatValue.innerHTML = `+${change(incvalue)}`;
+        container.appendChild(floatValue);
+        const rect = container.getBoundingClientRect();
+        const floatRect = floatValue.getBoundingClientRect();
+        floatValue.style.left = `${event.clientX - rect.left - floatRect.width / 2}px`;
+        floatValue.style.top = `${event.clientY - rect.top - floatRect.height / 2 + 67}px`;
+        floatValue.addEventListener("animationend", () => {
+            floatValue.remove();
+        })
+    }
 })
 
 clickupgradebutton.addEventListener("click", function() {
@@ -848,7 +881,6 @@ clickupgradebutton.addEventListener("click", function() {
         clickupgradecost = clickupgradecost * clickupgradecostmultiplier;
         document.getElementById("clickupgradelevel").innerHTML = clickupgradelevel;
         document.getElementById("clickupgradecost").innerHTML = change(clickupgradecost);
-        document.getElementById("moneypc").innerHTML = change(incvalue) + "/click" 
     }
 })
 
