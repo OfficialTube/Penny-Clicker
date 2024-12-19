@@ -1,3 +1,6 @@
+let version = document.getElementById("version").innerHTML;
+let VALID_VERSIONS = ["v0.5.0"];
+
 var money = 0.00;
 var achievementcounter = 0;
 var moneyt = 0.00;
@@ -73,6 +76,13 @@ let lastUpdateA = Date.now();
 let lastClick = Date.now();
 let moneyps = pennyvalue + nickelvalue + dimevalue + quartervalue + halfdollarvalue;
 
+window.onload = loadGame;
+window.addEventListener("beforeunload", function(event){
+    saveGame();
+    event.preventDefault();
+    event.returnValue='';
+});
+
 function updateMoneyps(){
     pennyvalue = pennyinc * pennymultiplier;
     nickelvalue = nickelinc * nickelmultiplier;
@@ -83,7 +93,7 @@ function updateMoneyps(){
     document.getElementById("moneyps").innerHTML = change(moneyps) + "/second";
 }
 
-const upgradesList = [
+let upgradesList = [
     //{id:, type:"", utype:"", name:"", required:, multiplier:, status:false, crequired:,color:},
     {id:1, type:"clicka", utype:"click", name:"100 Clicks", required:0.50, multiplier:1.5, status:false, crequired:100, color:3, purchased:false},
     {id:2, type:"clicka", utype:"click", name:"250 Clicks", required:2.50, multiplier:1.5, status:false, crequired:250, color:3, purchased:false},
@@ -159,7 +169,7 @@ const upgradesList = [
     {id:57, type:"halfdollarl", utype:"halfdollar", name:"Half Dollar Upgrade III", required:2000000, multiplier:2, status:false, crequired:50,color:1, purchased:false},
 ];
 
-const achievementsList = [
+let achievementsList = [
     {id:1, type:"clicks", name:"Clicked 100 Times", required:100, achieved:false},
     {id:2, type:"clicks", name:"Clicked 250 Times", required:250, achieved:false},
     {id:3, type:"clicks", name:"Clicked 500 Times", required:500, achieved:false},
@@ -694,27 +704,27 @@ setInterval(function() {
     lastUpdateA = now;
     moneyt += moneyps * deltaTime;
     document.getElementById("moneyt").innerHTML = "Total Earnings: " + change(moneyt);
-    if(money >= 0.10 && click == false) {
+    if(money >= 0.10 || click == true) {
         clickupgradebutton.style.display = "flex";
         click = true;
     }
-    if(money >= 0.50 && penny == false) {
+    if(money >= 0.50 || penny == true) {
         pennyupgradebutton.style.display = "flex";
         penny = true;
     }
-    if(money >= 2.50 && nickel == false) {
+    if(money >= 2.50 || nickel == true) {
         nickelupgradebutton.style.display = "flex";
         nickel = true;
     }
-    if(money >= 5.00 && dime == false) {
+    if(money >= 5.00 || dime == true) {
         dimeupgradebutton.style.display = "flex";
         dime = true;
     }
-    if(money >= 12.50 && quarter == false) {
+    if(money >= 12.50 || quarter == true) {
         quarterupgradebutton.style.display = "flex";
         quarter = true;
     }
-    if(money >= 25.00 && halfdollar == false) {
+    if(money >= 25.00 || halfdollar == true) {
         halfdollarupgradebutton.style.display = "flex";
         halfdollar = true;
     }

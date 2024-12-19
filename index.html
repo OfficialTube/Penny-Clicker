@@ -6,7 +6,7 @@
         <link rel="icon" href="/src/favicon.png" type="image/png">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <link rel="stylesheet" href="/css/style.css?v0.4.2">
+        <link rel="stylesheet" href="/css/style.css?v0.5.0">
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3209904520073036"
             crossorigin="anonymous"></script>
     </head>
@@ -14,11 +14,20 @@
         <div class="header">
             <span></span>
             <span >Penny Clicker</span>
-            <span id="version">v0.4.2</span>
+            <span id="version">v0.5.0</span>
             <span>Last Updated on December 16, 2024</span>
             <span><a class='rlc' href="changelog.html" target="_blank">Changelog</a></span>
             <span></span>
         </div>
+        <div id="loadingScreen">
+            <h1 class="title">Penny Clicker</h1>
+            <img id="titleimg" src="src/favicon.png"></img>
+            <h1 id="loading">Loading... <span id="loadingPercentage">0%</span></h1>
+            <div id = "emptyBar">
+                <div id="loadingBar"></div>
+            </div>
+        </div>
+        
         <h1 id="money">
             0.0¢
         </h1>
@@ -123,7 +132,9 @@
         </p>
         <p id="achievement-progress"></p>
         <div id="achievement-achieved"></div>
-        <script src="/js/main.js?v0.4.2"></script>
-        <script src="/js/css.js?v0.4.2"></script>
+        <button id="reset-btn">Reset</button>
+        <script src="/js/storage.js?v0.5.0"></script>
+        <script src="/js/main.js?v0.5.0"></script>
+        <script src="/js/css.js?v0.5.0"></script>
     </body>
 </html>
