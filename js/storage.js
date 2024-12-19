@@ -428,8 +428,9 @@ function loadGame() {
             document.getElementById('loadingScreen').style.display = "none";
         }, 1000);
     } else if(savedVersion === null) {
-        console.log("No saved version found. Setting as default version.");
+        alert("No saved version found. Setting as default version.");
         version = document.getElementById('version').innerHTML;
+        resetGame();
     }
     else {
         alert(`Your saved game version is outdated and incompatible with the latest version.\n\nYour version: ${savedVersion} \nLatest version: ${document.getElementById('version').innerHTML}\nCompatible versions: ${displayValidVersion()}\n\nYour game will reset and you will lose all of your progress.`);
@@ -726,6 +727,8 @@ function resetGame() {
     lastUpdateA = Date.now();
     lastClick = Date.now();
     moneyps = pennyvalue + nickelvalue + dimevalue + quartervalue + halfdollarvalue;
+
+    saveGame();
 
     location.reload();
 }

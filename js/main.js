@@ -1,5 +1,5 @@
 let version = document.getElementById("version").innerHTML;
-let VALID_VERSIONS = ["v0.5.0"];
+let VALID_VERSIONS = ["v0.5.0", "v0.5.0.1"];
 
 var money = 0.00;
 var achievementcounter = 0;
