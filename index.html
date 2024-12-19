@@ -1,100 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <title>Penny Clicker</title>
+        <meta name="description" content="Penny Clicker is a game in which the player clicks on a giant coin to receive money to buy upgrades to make more money.">
+        <link rel="icon" href="/src/favicon.png" type="image/png">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="/css/style.css?v0.5.0">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3209904520073036"
+            crossorigin="anonymous"></script>
     </head>
     <body>
         <div class="header">
-            <div class="subheader">
-                <span class="hs">Penny Clicker</span>
-                <span id="version" class="hs">
-                    v0.4.0
-                </span>
-                <span class="hs">Last Updated on December 6, 2024</span>
+            <span></span>
+            <span >Penny Clicker</span>
+            <span id="version">v0.5.0</span>
+            <span>Last Updated on December 16, 2024</span>
+            <span><a class='rlc' href="changelog.html" target="_blank">Changelog</a></span>
+            <span></span>
+        </div>
+        <div id="loadingScreen">
+            <h1 class="title">Penny Clicker</h1>
+            <img id="titleimg" src="src/favicon.png"></img>
+            <h1 id="loading">Loading... <span id="loadingPercentage">0%</span></h1>
+            <div id = "emptyBar">
+                <div id="loadingBar"></div>
             </div>
         </div>
+        
         <h1 id="money">
             0.0¢
         </h1>
-        <p id="moneypc">
-            1.0¢/click
-        </p>
         <p id="moneyps">
-            
+            0.0¢/second
         </p>
-        <div class="buttondiv">
+        <div class="buttondiv" id="game-container">
             <button id="button"></button>
         </div>
         
         <div>
-            <div>
-                <button id="clickupgrade" class="main-upgrade">
-                    <p>Click Upgrades</p>
-                    <p id="clickupgradelevel">
-                        Level: 0
-                    </p>
-                    <p id="clickupgradecost">
-                        Upgrade Cost: 10.0¢
-                    </p>
-                </button>
-            </div>
-            <div>
-                <button id="pennyupgrade" class="main-upgrade">
-                    <p>Penny Upgrades</p>
-                    <p id="pennylevel">
-                        Level: 0
-                    </p>
-                    <p id="pennycost">
-                        Upgrade Cost: 50.0¢
-                    </p>
-                </button>
-            </div>
-            <div>
-                <button id="nickelupgrade" class="main-upgrade">
-                    <p>Nickel Upgrades</p>
-                    <p id="nickellevel">
-                        Level: 0
-                    </p>
-                    <p id="nickelcost">
-                        Upgrade Cost: $2.50
-                    </p>
-                </button>
-            </div>
-            <div>
-                <button id="dimeupgrade" class="main-upgrade">
-                    <p>Dime Upgrades</p>
-                    <p id="dimelevel">
-                        Level: 0
-                    </p>
-                    <p id="dimecost">
-                        Upgrade Cost: $5.00
-                    </p>
-                </button>
-            </div>
-            <div>
-                <button id="quarterupgrade" class="main-upgrade">
-                    <p>Quarter Upgrades</p>
-                    <p id="quarterlevel">
-                        Level: 0
-                    </p>
-                    <p id="quartercost">
-                        Upgrade Cost: $12.50
-                    </p>
-                </button>
-            </div>
-            <div>
-                <button id="halfdollarupgrade" class="main-upgrade">
-                    <p>Half Dollar Upgrades</p>
-                    <p id="halfdollarlevel">
-                        Level: 0
-                    </p>
-                    <p id="halfdollarcost">
-                        Upgrade Cost: $25.00
-                    </p>
-                </button>
-            </div>
+            <button id="clickupgrade" class="main-upgrade">
+                <div id="clickupgradelevel" class="level">0</div>
+                <div class="mutuc">
+                    <p class="mut">Click</p>
+                    <p id="clickupgradecost" class="uc">10.0¢</p>
+                </div>
+                <img class="mi" src="/src/click.png"/>
+            </button>
         </div>
+        <div>        
+            <button id="pennyupgrade" class="main-upgrade">
+                <div class="level" id="pennylevel">0</div>
+                <div class="mutuc">
+                    <p class="mut">Penny</p>
+                    <p id="pennycost" class="uc">50.0¢</p>
+                </div>
+                <img class="mi" src="/src/1c.png" />
+            </button>
+        </div>            
+        <div>
+            <button id="nickelupgrade" class="main-upgrade">
+                <div class="level"id="nickellevel">0</div>
+                <div class="mutuc">
+                    <p class="mut">Nickel</p>
+                    <p id="nickelcost" class="uc">$2.50</p>
+                </div>
+                <img class="mi" src="/src/5c.png" />
+            </button>
+        </div> 
+        <div>
+            <button id="dimeupgrade" class="main-upgrade">
+                <div class="level"id="dimelevel">0</div>
+                <div class="mutuc">
+                    <p class="mut">Dime</p>
+                    <p id="dimecost" class="uc">$5.00</p>
+                </div>
+                <img class="mi" src="/src/10c.png" />
+            </button>
+        </div> 
+        <div>
+            <button id="quarterupgrade" class="main-upgrade">
+                <div class="level"id="quarterlevel">0</div>
+                <div class="mutuc">
+                    <p class="mut">Quarter</p>
+                    <p id="quartercost" class="uc">$12.50</p>
+                </div>
+                <img class="mi" src="/src/25c.png" />
+            </button>
+        </div> 
+        <div>
+            <button id="halfdollarupgrade" class="main-upgrade">
+                <div class="level"id="halfdollarlevel">0</div>
+                <div class="mutuc">
+                    <p class="mut">Half Dollar</p>
+                    <p id="halfdollarcost" class="uc">$25.00</p>
+                </div>
+                <img class="mi" src="/src/50c.png" />
+            </button>
+        </div> 
 
         <p id="upgradest">
 
@@ -129,6 +132,9 @@
         </p>
         <p id="achievement-progress"></p>
         <div id="achievement-achieved"></div>
-        <script src="home.js"></script>
+        <button id="reset-btn">Reset</button>
+        <script src="/js/storage.js?v0.5.0"></script>
+        <script src="/js/main.js?v0.5.0"></script>
+        <script src="/js/css.js?v0.5.0"></script>
     </body>
 </html>
