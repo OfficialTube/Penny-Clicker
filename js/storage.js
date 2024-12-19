@@ -371,8 +371,8 @@ function loadGame() {
         }
         updateLoadingBar(); // 52
 
-        if(localStorage.getItem('inc')){
-            inc = parseFloat(localStorage.getItem('inc'));
+        if(localStorage.getItem('halfdollarinc')){
+            halfdollarinc = parseFloat(localStorage.getItem('halfdollarinc'));
         }
         updateLoadingBar(); // 53
         if(localStorage.getItem('halfdollarmultiplier')){
@@ -758,4 +758,5 @@ function loadHTML(){
     document.getElementById('quartercost').innerHTML = change(quartercost);
     document.getElementById('halfdollarlevel').innerHTML = halfdollarlevel;
     document.getElementById('halfdollarcost').innerHTML = change(halfdollarcost);
+    document.getElementById('moneyps').innerHTML = `${change(moneyps)}/second`;
 }
