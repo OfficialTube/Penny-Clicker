@@ -123,11 +123,12 @@ function saveGame() {
 
 function loadGame() {
     document.getElementById('loadingScreen').style.display = 'flex';
-    const savedVersion = localStorage.getItem('version');
+    let savedVersion = localStorage.getItem('version');
     console.log(`Load Saved Version: ${savedVersion}`);
     if(savedVersion && VALID_VERSIONS.includes(savedVersion)){
-        updateLoadingBar(); // 1
         version = document.getElementById("version").innerHTML;
+        updateLoadingBar(); // 1
+        savedVersion = version;
         updateLoadingBar(); // 2
         if(localStorage.getItem('version')){
             version = localStorage.getItem('version');
@@ -763,3 +764,12 @@ function loadHTML(){
     document.getElementById('halfdollarcost').innerHTML = change(halfdollarcost);
     document.getElementById('moneyps').innerHTML = `${change(moneyps)}/second`;
 }
+
+const saveButton = document.getElementById('save-btn');
+saveButton.addEventListener('click', function() {
+    saveGame();
+})
+
+setInterval(() => {
+    saveGame();
+}, 60000);
