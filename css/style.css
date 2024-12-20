@@ -90,9 +90,9 @@ button {
 }
 #button {
     color: white;
-    border-radius: 200px;
-    height: 200px;
-    width: 200px;
+    border-radius: 50%;
+    min-height: 200px;
+    min-width: 200px;
     border: none;
     background-image:url("/src/1c.png");
     background-size: 101%;

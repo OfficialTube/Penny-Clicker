@@ -1,5 +1,5 @@
 let version = document.getElementById("version").innerHTML;
-let VALID_VERSIONS = ["v0.5.0", "v0.5.0.1"];
+let VALID_VERSIONS = ["v0.5.0", "v0.5.0.1", "v0.5.1"];
 
 var money = 0.00;
 var achievementcounter = 0;
@@ -15,6 +15,7 @@ var hours = 0;
 var stringhours;
 var days = 0;
 var stringdays;
+var start;
 var timestart = false;
 var incmultiplier = 1;
 var inc = 0.01; 
