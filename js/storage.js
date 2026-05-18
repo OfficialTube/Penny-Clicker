@@ -125,7 +125,7 @@ function loadGame() {
     document.getElementById('loadingScreen').style.display = 'flex';
     let savedVersion = localStorage.getItem('version');
     console.log(`Load Saved Version: ${savedVersion}`);
-    if(savedVersion && VALID_VERSIONS.includes(savedVersion)){
+    if(savedVersion == document.getElementById("version").innerHTML){
         version = document.getElementById("version").innerHTML;
         updateLoadingBar(); // 1
         savedVersion = version;
@@ -429,12 +429,14 @@ function loadGame() {
             document.getElementById('loadingScreen').style.display = "none";
         }, 1000);
     } else if(savedVersion === null) {
-        alert("No saved version found. Setting as default version.");
         version = document.getElementById('version').innerHTML;
         resetGame();
     }
+    else if(VALID_VERSIONS.includes(savedVersion)) {
+        alert(`Penny Clicker has updated since the last time you have played.\n\nLast Played: ${savedVersion}\nLatest Version: ${document.getElementById('version').innerHTML}\n\nWould you like to see what has changed since the last time you have played?`);
+    }
     else {
-        alert(`Your saved game version is outdated and incompatible with the latest version.\n\nYour version: ${savedVersion} \nLatest version: ${document.getElementById('version').innerHTML}\nCompatible versions: ${displayValidVersion()}\n\nYour game will reset and you will lose all of your progress.`);
+        alert(`Your saved game version is outdated and incompatible with the latest version.\n\nYour version: ${savedVersion} \nLatest version: ${document.getElementById('version').innerHTML}\nCompatible versions: ${displayValidVersion()}\n\nYour game will reset and you will lose all of your progress.\n\nWould you like to see what has changed since the last time you have played?`);
         resetGame();
     }
     console.log(`Version: ${version}`);

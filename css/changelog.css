@@ -52,6 +52,17 @@ h1{
     padding: 0;
 }
 .details {
-    display: none;
+    max-height: 0;
+    overflow: hidden;
     width: 100%;
+    transition: max-height 0.4s ease;
+}
+
+.arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.arrow.rotated {
+    transform: rotate(180deg);
 }
